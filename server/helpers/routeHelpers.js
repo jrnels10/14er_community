@@ -20,6 +20,8 @@ module.exports = {
             password: joi.string().required(),
             firstName: joi.string(),
             lastName: joi.string(),
+            homeTown:joi.string(),
+            homeState:joi.string(),
             profilePicture:joi.string()
         })
     }

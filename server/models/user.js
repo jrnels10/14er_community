@@ -25,6 +25,12 @@ const userSchema = new Schema({
         lastName: {
             type: String
         },
+        homeTown:{
+            type:String,
+        },
+        homeState:{
+            type:String,
+        },
         profilePicture: {
             type: String
         }
@@ -43,6 +49,12 @@ const userSchema = new Schema({
         lastName: {
             type: String,
         },
+        homeTown:{
+            type:String,
+        },
+        homeState:{
+            type:String,
+        },
         profilePicture: {
             type: String
         }
@@ -60,6 +72,12 @@ const userSchema = new Schema({
         },
         lastName: {
             type: String
+        },
+        homeTown:{
+            type:String,
+        },
+        homeState:{
+            type:String,
         },
         profilePicture: {
             type: String

@@ -5,7 +5,7 @@ const uuidv1 = require('uuid/v1');
 
 
 signToken = user => {
-    console.log(user)
+    console.log("user", user)
     return JWT.sign({
         iss: 'strava',
         sub: user._id,
@@ -35,10 +35,11 @@ module.exports = {
                 password: password,
                 firstName: firstName,
                 lastName: lastName,
-                profilePicture:''
+                profilePicture: ''
             }
         });
         await newUser.save();
+
 
         // response with token
         // res.json({ user: 'created' });
@@ -55,6 +56,7 @@ module.exports = {
 
     googleOAuth: async (req, res, next) => {
         // Generate token
+        console.log(req.user)
         const token = signToken(req.user);
         res.status(200).json({ token });
     },
@@ -70,12 +72,66 @@ module.exports = {
         // console.log('next' ,next)
         res.json({ secret: 'resource', profile: req.user })
     },
-    update: async (req, res, next) => {
-        console.log(req.params, 'req', req)
-        User.findByIdAndUpdate({ _id: req.params.id }, req.body).then(function () {
-            User.findOne({ _id: req.params.id }).then(function (item) {
-                res.send(item)
+    updateUser: async (req, res, next) => {
+        var obj = JSON.parse(req.body.user);
+        var picture;
+        if (req.file === undefined) {
+            picture = obj.profilePicture;
+        }
+        else {
+            picture = req.file.originalname;
+        }
+        console.log("Test", obj.methodType)
+        if (req.body.data === "google") {
+            const googleObject = {
+                "google.profilePicture": picture,
+                "google.email": obj.email,
+                "google.firstName": obj.firstName,
+                "google.lastName": obj.lastName,
+                "google.homeTown": obj.homeTown,
+                "google.homeState": obj.homeState
+            }
+            console.log("homeTown",obj.homeTown)
+            return User.findOneAndUpdate({ 'google.email': req.params.email }, googleObject).then(function () {
+                console.log("updated")
+                User.findOne({ 'google.email': req.params.email }).then(function (item) {
+                    res.send(item)
+                });
             });
-        });
+        }
+        else if (req.body.data === "local") {
+            const localObject = {
+                "local.profilePicture": picture,
+                "local.email": obj.email,
+                "local.firstName": obj.firstName,
+                "local.lastName": obj.lastName,
+                "local.homeTown": obj.homeTown,
+                "local.homeState": obj.homeState
+            }
+            console.log("local",localObject)
+
+            return User.findOneAndUpdate({ 'local.email': req.params.email }, localObject).then(function () {
+                console.log("updated")
+                User.findOne({ 'local.email': req.params.email }).then(function (item) {
+                    res.send(item)
+                });
+            });
+        }
+        else if (req.body.data === "facebook") {
+            const facebookObject = {
+                "facebook.profilePicture": picture,
+                "facebook.email": obj.email,
+                "facebook.firstName": obj.firstName,
+                "facebook.lastName": obj.lastName,
+                "facebook.homeTown": obj.homeTown,
+                "facebook.homeState": obj.homeState
+            }
+            return User.findOneAndUpdate({ 'facebook.email': req.params.email },facebookObject).then(function () {
+                console.log("updated")
+                User.findOne({ 'facebook.email': req.params.email }).then(function (item) {
+                    res.send(item)
+                });
+            });
+        }
     }
 }

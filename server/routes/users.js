@@ -14,10 +14,18 @@ const passportJWT = passport.authenticate('jwt', { session: false });
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads');
+        if(file===undefined){
+
+        }else{
+            cb(null, './uploads');
+        }
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname)
+        if(file===undefined){
+
+        }else{
+            cb(null, file.originalname)
+        }
     }
 })
 const upload = multer({
@@ -35,15 +43,8 @@ router.route('/signin')
     .post(validateBody(schema.authSchema), passportSignIn, UserController.signIn);
 
 router.route('/update/:email')
-    .put(upload.single('profilePicture'), (req, res, next) => {
-        console.log(req)
-        User.findOneAndUpdate({ 'local.email': req.params.email },{"local.profilePicture":req.file.originalname}).then(function () {
-            console.log("updated")
-            User.findOne({ 'local.email': req.params.email }).then(function (item) {
-                res.send(item)
-            });
-        });
-    })
+    .put(upload.single('profilePicture'), UserController.updateUser);
+    
 router.route('/oauth/google')
     .post(passportGoogle, UserController.googleOAuth);
 
