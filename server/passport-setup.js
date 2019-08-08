@@ -6,12 +6,21 @@ const FacebookTokenStrategy = require('passport-facebook-token');
 const { ExtractJwt } = require('passport-jwt');
 const User = require('./models/user');
 
-const { JWT_secret, google, facebook } = require('./config/keys');
+const { JWT_secret, google, facebook, state } = require('./config/keys');
+
+const JWT_prod = state === 'production'? process.env.JWT_secret_URI:JWT_secret;
+const google_prod_client = state === 'production'? process.env.google_clientID_URI:google.clientID;
+const google_prod_clientSecret = state === 'production'? process.env.google_clientSecret_URI:google.clientSecret;
+const facebook_prod_AppID = state === 'production'? process.env.facebook_AppID_URI:facebook.AppID;
+const facebook_prod_AppSecret = state === 'production'? process.env.facebook_AppSecret_URI:facebook.AppSecret;
+
+// facebook.AppSecret
+
 
 // JSON WEB TOKENS STRATEGY
 passport.use(new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-    secretOrKey: JWT_secret
+    secretOrKey: JWT_prod
 }, async (payload, done) => {
     try {
         // find user specified in token
@@ -32,8 +41,8 @@ passport.use(new JwtStrategy({
 
 // GOOGLE OAUTH STRATEGY
 passport.use('googleToken', new GooglePlusTokenStrategy({
-    clientID: google.clientID,
-    clientSecret: google.clientSecret
+    clientID: google_prod_client,
+    clientSecret: google_prod_clientSecret
 }, async (accessToken, refreshToken, profile, done) => {
     try {
         // console.log("accessToken", accessToken);
@@ -73,8 +82,8 @@ passport.use('googleToken', new GooglePlusTokenStrategy({
 }));
 
 passport.use('facebookToken', new FacebookTokenStrategy({
-    clientID: facebook.AppID,
-    clientSecret: facebook.AppSecret
+    clientID: facebook_prod_AppID,
+    clientSecret: facebook_prod_AppSecret
 }, async (accessToken, refreshToken, profile, done) => {
     try {
         console.log('profile', profile)

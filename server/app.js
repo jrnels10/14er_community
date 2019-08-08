@@ -4,10 +4,13 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+// const db = process.env.MONGODB_URI
+// console.log(process.env.NODE_ENV)
+const db = keys.state === 'production'? process.env.MONGODB_URI:keys.mongoDB.dbURI;
 
 
 
-mongoose.connect(keys.mongoDB.dbURI,{ useNewUrlParser: true }, ()=>{
+mongoose.connect(db,{ useNewUrlParser: true }, ()=>{
 
     console.log("connected to mongodb");
 });
