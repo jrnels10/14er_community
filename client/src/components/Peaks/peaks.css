@@ -1,0 +1,16 @@
+.testimonial-group>.row {
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+}
+
+.testimonial-group>.row>.col-xs-4 {
+    display: inline-block;
+    float: none;
+}
+
+.peak-container{
+    border: 1px solid black;
+    background: #0d4160;
+    color: white
+}

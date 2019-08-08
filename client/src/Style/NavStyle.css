@@ -1,0 +1,67 @@
+.blueish {
+    background: #0d4160
+}
+
+.navbar {
+    position: absolute;
+    width: 100%;
+    height: 56px;
+    z-index: 1000;
+    top: 0;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#navbarSupportedContent {
+    margin-top: 48px;
+    /* background: #0d4160; */
+    left: 0;
+    width: 100%;
+    padding-left: 20px;
+}
+
+.navbar-custom-close {
+    height: 0px;
+    /* opacity: 0; */
+    transition: height 0.3s ease-in;
+}
+
+.navbar-custom-open {
+    height: 150px;
+    transition: height 0.2s ease-in;
+    display: block !important
+}
+
+.navbar-toggler {
+    right: 20px;
+    top: 10px;
+    position: absolute;
+}
+
+.navbar-toggler-open {
+    display: none;
+    position: absolute;
+}
+
+.navbar-toggler-close {
+    position: absolute;
+    display: block;
+    right: 20px;
+}
+
+.navbar-brand {
+    position: absolute;
+    top: 10px;
+    left: 20px
+}
+
+.ul-close {
+    height: 0px;
+    opacity: 0;
+    transition: opacity .1s ease-in, height .9s;
+}
+
+.ul-open {
+    opacity: 1;
+    transition: opacity .4s ease-in;
+}

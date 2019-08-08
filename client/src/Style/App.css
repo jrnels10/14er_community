@@ -1,0 +1,32 @@
+html, body, #root {
+    height: 100vh
+}
+
+#app-div {
+    background: url(./girlOnMountain_mobile_left.jpg);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+    padding-top: 56px !important;
+}
+
+@media screen and (min-width: 992px) {
+    #app-div {
+        background: url(./girlOnMountain.jpg);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        padding-top: 56px !important;
+    }
+}
+
+#search-div{
+    position: absolute;
+    z-index: 1000;
+    right: 40vw;
+    top: 20px;
+    border: 2px solid #03385c
+}
+
+/* #body-container{
+} */

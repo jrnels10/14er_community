@@ -1,0 +1,52 @@
+.sign-container {
+    background: none;
+    height: 500px;
+    width: 500px;
+    position: absolute;
+    top: 10%;
+    right: 5%;
+   
+}
+
+.sign-blur {
+    /* background: url(./girlOnMountain.jpg); */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right center;
+    background-size: cover;
+    background-color: rgba(192, 192, 192, 0.5);
+    filter: blur(3px);
+    position: relative;
+    top:0px;
+}
+
+.sign-form {
+    position: relative;
+    bottom: 360px;
+    z-index: 1000;
+    padding: 10px;
+    background-color: rgba(45, 60, 75, 0.2);
+    box-shadow: 2px 2px 5px 5px rgba(45, 60, 75, 0.2);
+}
+
+.facebook-login {
+    background-color:#395898 !important;
+    outline: none;
+    color:#ffffff
+}
+
+.google-login{
+    width: 106.8px !important;
+    height: 38px !important;
+    position: relative;
+}
+.google-login div{
+    padding: 5px !important;
+    margin-bottom: 4px !important;
+    margin-left: 3px;
+    float: right
+}
+
+.alert-primary{
+    padding: .3rem
+}

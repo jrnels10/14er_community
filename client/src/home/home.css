@@ -1,0 +1,64 @@
+/* #home-logo{
+    height: 25%
+} */
+
+.sign-close {
+    opacity: 0;
+}
+
+.sign-open {
+    opacity: 1;
+}
+
+hr {
+    margin-top: 1px;
+    margin-left: 7px;
+    /* margin-bottom: 1rem; */
+    border: 0;
+    width: 100%;
+    border-top: 2px solid #ffc10a;
+}
+
+.sigin-input {
+    background: none;
+    color: white;
+    border: none;
+}
+
+.sigin-input:focus{
+    outline: none;
+}
+.fa-arrow-circle-right{
+    color: #ffc10a;
+}
+
+.signin-button{
+    background: #03385c;
+    color: white;
+    outline: none;
+    border: none;
+}
+/* .signin-close {
+    width: 0px;
+    transition: width 1s;
+    transition-delay: 5s;
+}
+
+.signin-open {
+    width: 100%;
+    background: green;
+    opacity: 1;
+    transition: width .5s;
+} */
+
+/* 
+.signin-opacity-close {
+    opacity: 0;
+    transition: opacity .1s;
+}
+
+.signin-opacity-open {
+    opacity: 1;
+    transition: opacity .1s;
+    transition-delay: .5s;
+} */
