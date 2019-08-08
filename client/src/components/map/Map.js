@@ -113,9 +113,9 @@ class MapClass extends Component {
                 // console.log(gLayer)
                 var searchWidget = new Search({
                     view: view,
-                    container:"search-div",
+                    container: "search-div",
                     allPlaceholder: "14er name",
-                    includeDefaultSources:false,
+                    includeDefaultSources: false,
                     sources: [{
                         layer: layer,
                         searchFields: ["name"],
@@ -128,22 +128,22 @@ class MapClass extends Component {
                 });
                 // Adds the search widget below other elements in
                 // the top left corner of the view
-               
 
-                searchWidget.on("select-result", async function(event){
+
+                searchWidget.on("select-result", async function (event) {
                     console.log("The selected search result: ", event);
                     var opts = {
                         duration: 2000, // Duration of animation will be 5 seconds
                         easing: t => t < .5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t
                     };
-    
+
                     // go to point at LOD 15 with custom duration
-                  
+
                     view.goTo({
                         target: event.result.extent,
                         zoom: 12
                     }, opts);
-                  });
+                });
 
                 view.whenLayerView(layer)
                     .then(function (layerView) {
@@ -183,7 +183,10 @@ class MapClass extends Component {
                     // console.log(value)
                     return <React.Fragment>
                         <div className='w-100 h-100 bg-light' id="viewDiv">
-                            <div id="search-div"></div>
+                            <div className="position-absolute m-auto" id="search-div-container">
+
+                                <div id="search-div"></div>
+                            </div>
                         </div>
                     </React.Fragment>
                 }}

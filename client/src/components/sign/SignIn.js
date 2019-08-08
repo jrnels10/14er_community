@@ -32,7 +32,7 @@ export default class SignIn extends Component {
                     token: res.data.token,
                     isAuthenticated: true,
                     errorMessage: '',
-                    home:false
+                    home: false
                 }
             });
             localStorage.setItem('JWT_TOKEN', res.data.token);
@@ -97,19 +97,28 @@ export default class SignIn extends Component {
 
     }
 
+    close = () => {
+        console.log("close");
+        this.setState({ open: false })
+        this.props.history.push('/');
+    }
+
 
     render() {
+        // console.log(this.props)
+
         return (
             <Consumer>
                 {value => {
+                    console.log(value)
                     const { dispatch } = value;
                     const open = !this.state.open ? "close" : "open";
-                    return <div className={`col-7 h-75 float-right signin-${open} `}>
+                    return <div className={`col-7 float-right signin-${open} `}>
                         <div className={`w-100`}>
                             <span className="m-2" onClick={this.close}><i className="fas fa-arrow-circle-right fa-lg"></i></span>
                             <form className={`mt-2`} onSubmit={this.onSubmit.bind(this, dispatch)}>
                                 <div className="form-group-sm">
-                                    <label className="text-white ml-2 mb-1" htmlFor="exampleInputEmail1">Email address</label>
+                                    <label className="text-white w-100 font-weight-bold ml-2 mb-1" htmlFor="exampleInputEmail1">Email address</label>
                                     <input
                                         className="form-control-sm sigin-input"
                                         id="exampleInputEmail1"
@@ -122,43 +131,46 @@ export default class SignIn extends Component {
                                     <hr></hr>
                                 </div>
                                 <div className="form-group">
-                                    <label className="text-white ml-2 mb-1"  htmlFor="exampleInputPassword1 text-white">Password</label>
+                                    <label className="text-white w-100 font-weight-bold ml-2 mb-1" htmlFor="exampleInputPassword1 text-white">Password</label>
                                     <input
                                         className="form-control-sm sigin-input"
                                         id="exampleInputPassword1"
                                         type="password"
                                         name='password'
                                         onChange={this.onChange}
-                                        placeholder="Password" />
+                                        placeholder="14ersRcool" />
                                     <hr></hr>
                                 </div>
 
                                 <button type="submit" className="btn btn-primary signin-button ml-2">Sign In</button>
                             </form>
                             {this.state.errorMessage ? <div className='alert alert-danger'>{value.errorMessage}</div> : null}
-                            <div className='text-white'><small>
+                            <div className='text-white pl-2 mt-2'><small>
                                 Or sign in using Google or Facebook
                             </small>
                             </div>
-                            <div className='m-auto text-center'>
+                            <div className='row w-100 m-0 pl-2 p-0 mt-3'>
+                                <div className="w-50 m-auto text-center">
 
-                                <FacebookLogin
-                                    appId="2368972536494612"
-                                    autoLoad={false}
-                                    textButton=" Facebook"
-                                    fields="name,email,picture"
-                                    callback={this.responseFacebook.bind(this, dispatch)}
-                                    cssClass="btn facebook-login"
-                                    icon="fa-facebook"
-                                />
-
-                                <GoogleLogin
-                                    clientId="193762703842-63qqf0oip1i372ib0a27opsn8opuhpkm.apps.googleusercontent.com"
-                                    buttonText="Google"
-                                    onSuccess={this.responseGoogle.bind(this, dispatch)}
-                                    onFailure={this.responseGoogle}
-                                    className='btn google-login ml-5'
-                                />
+                                    <FacebookLogin
+                                        appId="2368972536494612"
+                                        autoLoad={false}
+                                        textButton=" Facebook"
+                                        fields="name,email,picture"
+                                        callback={this.responseFacebook.bind(this, dispatch)}
+                                        cssClass="btn facebook-login"
+                                        icon="fa-facebook"
+                                    />
+                                </div>
+                                <div className="w-50 m-auto text-center">
+                                    <GoogleLogin
+                                        clientId="193762703842-63qqf0oip1i372ib0a27opsn8opuhpkm.apps.googleusercontent.com"
+                                        buttonText="Google"
+                                        onSuccess={this.responseGoogle.bind(this, dispatch)}
+                                        onFailure={this.responseGoogle}
+                                        className='btn google-login ml-5'
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

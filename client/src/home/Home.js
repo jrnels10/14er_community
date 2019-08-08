@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SignInMobile from './../components/sign/SignMobile';
+import SignIn from './../components/sign/SignIn';
 import {Consumer} from './../Context';
 import { Link } from 'react-router-dom';
 
@@ -18,6 +18,7 @@ export default class Home extends Component {
     }
 
     closeSign = () => {
+        console.log('test')
         this.setState({
             open: true
         })
@@ -33,7 +34,7 @@ export default class Home extends Component {
                     return <div className="w-100 h-100 row m-0" >
                         <div className="col-12">
                             <div className="row h-25" id="home-logo">
-                                Welcome to our homepage
+                                {/* Welcome to our homepage */}
 
                         </div>
                             {this.state.open ?
@@ -46,13 +47,13 @@ export default class Home extends Component {
                                             <div className="col-7 col-md-4 h-75 float-right mt-5">
                                                 <div className={`sign-button sign-${open} mt-5`}>
                                                     <button className="btn w-100 btn-warning" onClick={this.signUp}> <Link className="nav-link p-0 text-white" to="/signin">Sign In</Link></button>
-                                                    <button className="btn w-100 btn-outline-warning ng-lighr mt-4">Sign Up</button>
+                                                    <button className="btn w-100 btn-outline-warning ng-lighr mt-4"> <Link className="nav-link p-0 text-white" to="/signup">Sign Up</Link></button>
                                                 </div>
                                             </div>
                                         </div>
                                         : null}
                                 </React.Fragment>
-                                : <SignInMobile close={this.closeSign} />}
+                                : <SignIn close={this.closeSign} />}
                             <div className="row"></div>
                         </div>
                     </div>

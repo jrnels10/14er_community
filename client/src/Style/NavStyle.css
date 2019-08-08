@@ -2,6 +2,10 @@
     background: #0d4160
 }
 
+.text-no-color> .nav-item{
+    color: #0d4160 !important
+}
+
 .navbar {
     position: absolute;
     width: 100%;

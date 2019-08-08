@@ -9,8 +9,23 @@ html, body, #root {
     background-size: cover;
     padding-top: 56px !important;
 }
+.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {
+    /* padding-top:56px; */
+    /* position: absolute; */
+    z-index: 10000;
+}
 
-@media screen and (min-width: 992px) {
+.esri-expand__content--expanded {
+    height: 80% !important;
+    max-height: 600px !important;
+}
+.esri-widget--panel-height-only{
+    height: 100%;
+    max-height: 600px !important;
+
+}
+
+@media screen and (min-width: 600px) {
     #app-div {
         background: url(./girlOnMountain.jpg);
         background-repeat: no-repeat;
@@ -18,13 +33,21 @@ html, body, #root {
         background-size: cover;
         padding-top: 56px !important;
     }
+    
 }
-
-#search-div{
-    position: absolute;
+#search-div-container{
     z-index: 1000;
-    right: 40vw;
+    margin:auto;
+    right: 0;
+    left: 0;
     top: 20px;
+    text-align: center;
+    width: 80%;
+    /* width: calc(80% - 20px);; */
+}
+#search-div{
+    position: relative;
+    margin: auto;
     border: 2px solid #03385c
 }
 
