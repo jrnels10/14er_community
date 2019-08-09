@@ -6,7 +6,7 @@ const FacebookTokenStrategy = require('passport-facebook-token');
 const { ExtractJwt } = require('passport-jwt');
 const User = require('./models/user');
 
-const { JWT_secret, google, facebook, state } = require('./config/keys');
+// const { JWT_secret, google, facebook, state } = require('./config/keys');
 
 const JWT_prod = state === 'production'? process.env.JWT_secret_URI:null;
 const google_prod_client = state === 'production'? process.env.google_clientID_URI:null;
