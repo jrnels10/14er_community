@@ -7,7 +7,7 @@ const path = require('path');
 const cors = require('cors');
 // const db = process.env.MONGODB_URI
 // console.log(process.env.NODE_ENV)
-const db = keys.state === 'production' ? process.env.MONGODB_URI:null
+const db = process.env.MONGODB_URI;
     // : keys.mongoDB.dbURI;
 
 
