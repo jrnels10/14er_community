@@ -8,11 +8,11 @@ const User = require('./models/user');
 
 const { JWT_secret, google, facebook, state } = require('./config/keys');
 
-const JWT_prod = state === 'production'? process.env.JWT_secret_URI:JWT_secret;
-const google_prod_client = state === 'production'? process.env.google_clientID_URI:google.clientID;
-const google_prod_clientSecret = state === 'production'? process.env.google_clientSecret_URI:google.clientSecret;
-const facebook_prod_AppID = state === 'production'? process.env.facebook_AppID_URI:facebook.AppID;
-const facebook_prod_AppSecret = state === 'production'? process.env.facebook_AppSecret_URI:facebook.AppSecret;
+const JWT_prod = state === 'production'? process.env.JWT_secret_URI:null;
+const google_prod_client = state === 'production'? process.env.google_clientID_URI:null;
+const google_prod_clientSecret = state === 'production'? process.env.google_clientSecret_URI:null;
+const facebook_prod_AppID = state === 'production'? process.env.facebook_AppID_URI:null;
+const facebook_prod_AppSecret = state === 'production'? process.env.facebook_AppSecret_URI:null;
 
 // facebook.AppSecret
 

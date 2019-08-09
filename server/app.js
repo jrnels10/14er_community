@@ -1,13 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const keys = require('./config/keys');
+// const keys = require('./config/keys');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 // const db = process.env.MONGODB_URI
 // console.log(process.env.NODE_ENV)
-const db = keys.state === 'production' ? process.env.MONGODB_URI : keys.mongoDB.dbURI;
+const db = keys.state === 'production' ? process.env.MONGODB_URI:null
+    // : keys.mongoDB.dbURI;
 
 
 
