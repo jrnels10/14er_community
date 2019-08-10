@@ -15,16 +15,17 @@ export default class SignIn extends Component {
         };
     }
 
-    onSubmit = async (dispatch, e) => {
-        console.log(this.state)
+    onSubmit = async (value, e) => {
+        const { dispatch,axiosServerUrl } = value;
+        // console.log(this.state)
         e.preventDefault();
         // Step 1) User the data and to make HTTP request to our BE and send it along
         // Step 2) Take the BE's response (jwtToken)
         // Step 3) Dispatch 'user just signed up'
         // Step 4) Save the jwtToken into our localStorage
         try {
-            const res = await axios.post('https://fourteener-community.herokuapp.com/users/signin', { email: this.state.email, password: this.state.password })
-            console.log(res)
+            const res = await axios.post(`${axiosServerUrl}/users/signin`, { email: this.state.email, password: this.state.password })
+            // console.log(res)
             dispatch({
                 type: "SIGN_IN",
                 payload: {
@@ -52,10 +53,12 @@ export default class SignIn extends Component {
 
     }
 
-    async responseGoogle(dispatch, res) {
+    async responseGoogle(value, res) {
+        const { dispatch,axiosServerUrl } = value;
+
         try {
-            const data = await axios.post('https://fourteener-community.herokuapp.com/users/oauth/google', { access_token: res.accessToken });
-            console.log(data);
+            const data = await axios.post(`${axiosServerUrl}/users/oauth/google`, { access_token: res.accessToken });
+            // console.log(data);
             dispatch({
                 type: "SIGN_UP",
                 payload: {
@@ -71,10 +74,11 @@ export default class SignIn extends Component {
             console.log(err)
         }
     }
-    async responseFacebook(dispatch, res) {
+    async responseFacebook(value, res) {
+        const { dispatch,axiosServerUrl } = value;
         // console.log(dispatch, res)
         try {
-            const data = await axios.post('https://fourteener-community.herokuapp.com/users/oauth/facebook', { access_token: res.accessToken });
+            const data = await axios.post(`${axiosServerUrl}/users/oauth/facebook`, { access_token: res.accessToken });
             // console.log(data);
             dispatch({
                 type: "SIGN_UP",
@@ -98,7 +102,7 @@ export default class SignIn extends Component {
     }
 
     close = () => {
-        console.log("close");
+        // console.log("close");
         this.setState({ open: false })
         this.props.history.push('/');
     }
@@ -110,13 +114,13 @@ export default class SignIn extends Component {
         return (
             <Consumer>
                 {value => {
-                    console.log(value)
-                    const { dispatch } = value;
+                    // console.log(value)
+                    // const { dispatch } = value;
                     const open = !this.state.open ? "close" : "open";
                     return <div className={`col-7 float-right signin-${open} `}>
                         <div className={`w-100`}>
                             <span className="m-2" onClick={this.close}><i className="fas fa-arrow-circle-right fa-lg"></i></span>
-                            <form className={`mt-2`} onSubmit={this.onSubmit.bind(this, dispatch)}>
+                            <form className={`mt-2`} onSubmit={this.onSubmit.bind(this, value)}>
                                 <div className="form-group-sm">
                                     <label className="text-white w-100 font-weight-bold ml-2 mb-1" htmlFor="exampleInputEmail1">Email address</label>
                                     <input
@@ -153,20 +157,20 @@ export default class SignIn extends Component {
                                 <div className="w-50 m-auto text-center">
 
                                     <FacebookLogin
-                                        appId="2368972536494612"
+                                        appId={`${value.facebookappId}`}
                                         autoLoad={false}
                                         textButton=" Facebook"
                                         fields="name,email,picture"
-                                        callback={this.responseFacebook.bind(this, dispatch)}
+                                        callback={this.responseFacebook.bind(this, value)}
                                         cssClass="btn facebook-login"
                                         icon="fa-facebook"
                                     />
                                 </div>
                                 <div className="w-50 m-auto text-center">
                                     <GoogleLogin
-                                        clientId="193762703842-63qqf0oip1i372ib0a27opsn8opuhpkm.apps.googleusercontent.com"
+                                        clientId={`${value.googleClientId}`}
                                         buttonText="Google"
-                                        onSuccess={this.responseGoogle.bind(this, dispatch)}
+                                        onSuccess={this.responseGoogle.bind(this, value)}
                                         onFailure={this.responseGoogle}
                                         className='btn google-login ml-5'
                                     />

@@ -4,7 +4,7 @@ import axios from 'axios';
 const Context = React.createContext();
 let wellList = [];
 
-
+console.log(process.env)
 const reducer = (state, action) => {
     // debugger
     switch (action.type) {
@@ -94,18 +94,29 @@ export class Provider extends Component {
         method: '',
         isAuthenticated: false,
         token: '',
-        peaksLayers:'',
-        view:'',
-        map:'',
+        peaksLayers: '',
+        view: '',
+        map: '',
         id: '',
         errorMessage: '',
+        facebookappId: "2368972536494612",
+        googleClientId: "193762703842-63qqf0oip1i372ib0a27opsn8opuhpkm.apps.googleusercontent.com",
+        axiosServerUrl: 'http://localhost:5000',
         wells: [],
         dispatch: action => this.setState(state => reducer(state, action))
     }
     componentDidMount() {
+        this.environment();
         const jwtToken = localStorage.getItem('JWT_TOKEN');
         axios.defaults.headers.common['Authorization'] = jwtToken;
         return jwtToken ? this.setState({ token: jwtToken, isAuthenticated: true }) : null
+    }
+    environment = () => {
+        return process.env.NODE_ENV === "development" ? null : this.setState({
+            facebookappId: process.env.AppID_URI,
+            googleClientId: process.env.clientID_URI,
+            axiosServerUrl: 'https://fourteener-community.herokuapp.com'
+        })
     }
     render() {
         return (

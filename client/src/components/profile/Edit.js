@@ -9,7 +9,7 @@ import axios from 'axios';
 
 class EditProfile extends Component {
     constructor(props) {
-        console.log(props)
+        // console.log(props)
         super(props);
 
         this.state = {
@@ -69,7 +69,7 @@ class EditProfile extends Component {
         bodyFormData.append('data', this.state.method);
         bodyFormData.append('user', json);
         // debugger
-        const res = await axios.put(`http://localhost:5000/users/update/${this.props.user.email}`,
+        const res = await axios.put(`${this.props.user.axiosServerUrl}/users/update/${this.props.user.email}`,
             bodyFormData,
             { headers: { 'Content-Type': 'multipart/form-data' } }
         );

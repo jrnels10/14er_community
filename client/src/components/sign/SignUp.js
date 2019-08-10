@@ -17,16 +17,17 @@ export default class SignUp extends Component {
         };
     }
 
-    onSubmit = async (dispatch, e) => {
-        console.log(this.state)
+    onSubmit = async (value, e) => {
+        const { dispatch,axiosServerUrl } = value;
         e.preventDefault();
         // Step 1) User the data and to make HTTP request to our BE and send it along
         // Step 2) Take the BE's response (jwtToken)
         // Step 3) Dispatch 'user just signed up'
         // Step 4) Save the jwtToken into our localStorage
         try {
-            const res = await axios.post('https://fourteener-community.herokuapp.com/users/signup', {
-                email: this.state.email,
+            const res = await axios.post(`${axiosServerUrl}/users/signup`, {
+                // const res = await axios.post('https://fourteener-community.herokuapp.com/users/signup', {
+                    email: this.state.email,
                 password: this.state.password,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName
@@ -58,9 +59,11 @@ export default class SignUp extends Component {
 
     }
 
-    async responseGoogle(dispatch, res) {
+    async responseGoogle(value, res) {
+        const { dispatch,axiosServerUrl } = value;
         try {
-            const data = await axios.post('https://fourteener-community.herokuapp.com/users/oauth/google', { access_token: res.accessToken });
+            const data = await axios.post(`${axiosServerUrl}/users/oauth/google`, { access_token: res.accessToken });
+            // const data = await axios.post('https://fourteener-community.herokuapp.com/users/oauth/google', { access_token: res.accessToken });
             // console.log(data);
             dispatch({
                 type: "SIGN_UP",
@@ -78,10 +81,13 @@ export default class SignUp extends Component {
             console.log(err)
         }
     }
-    async responseFacebook(dispatch, res) {
+    async responseFacebook(value, res) {
+        const { dispatch,axiosServerUrl } = value;
         // console.log(dispatch, res)
+        debugger
         try {
-            const data = await axios.post('https://fourteener-community.herokuapp.com/users/oauth/facebook', { access_token: res.accessToken });
+            const data = await axios.post(`${axiosServerUrl}/users/oauth/facebook`, { access_token: res.accessToken });
+            // const data = await axios.post('https://fourteener-community.herokuapp.com/users/oauth/facebook', { access_token: res.accessToken });
             // console.log(data);
             dispatch({
                 type: "SIGN_UP",
@@ -114,12 +120,12 @@ export default class SignUp extends Component {
         return (
             <Consumer>
                 {value => {
-                    const { dispatch } = value;
+                    // const { dispatch } = value;
                     const open = !this.state.open ? "close" : "open";
                     return <div className={`col-7 float-right signup-${open} `}>
                         <div className={`w-100`}>
                             <span className="m-2" onClick={this.close}><i className="fas fa-arrow-circle-right fa-lg"></i></span>
-                            <form className={`mt-2`} onSubmit={this.onSubmit.bind(this, dispatch)}>
+                            <form className={`mt-2`} onSubmit={this.onSubmit.bind(this, value)}>
                                 <div className="form-group-sm">
                                     <label className="text-white w-100 font-weight-bold ml-2 mb-1 signup-labels" htmlFor="exampleInputEmail1">Email address</label>
                                     <input
@@ -181,20 +187,20 @@ export default class SignUp extends Component {
                                 <div className="w-50 m-auto text-center">
 
                                     <FacebookLogin
-                                        appId={process.env.AppID_URI}
+                                        appId={`${value.facebookappId}`}
                                         autoLoad={false}
                                         textButton=" Facebook"
                                         fields="name,email,picture"
-                                        callback={this.responseFacebook.bind(this, dispatch)}
+                                        callback={this.responseFacebook.bind(this, value)}
                                         cssClass="btn facebook-login"
                                         icon="fa-facebook"
                                     />
                                 </div>
                                 <div className="w-50 m-auto text-center">
                                     <GoogleLogin
-                                        clientId='193762703842-srn8he4847mntqhqu0fmen7l29s5b6nj.apps.googleusercontent.com'
+                                        clientId={`${value.googleClientId}`}
                                         buttonText="Google"
-                                        onSuccess={this.responseGoogle.bind(this, dispatch)}
+                                        onSuccess={this.responseGoogle.bind(this, value)}
                                         onFailure={this.responseGoogle}
                                         className='btn google-login ml-5'
                                     />
@@ -203,87 +209,6 @@ export default class SignUp extends Component {
                         </div>
                     </div>
 
-                    // return <div className='col-5 jumbotron float-right sign-container'>
-                    //     <div className='h-100 w-100 sign-blur'>
-                    //     </div>
-                    //     <div className='h-100 w-100 sign-form'>
-                    //         <form className='mb-3' onSubmit={this.onSubmit.bind(this, dispatch)}>
-                    //             <div className="form-group">
-                    //                 <label htmlFor="exampleInputEmail1">Email address</label>
-                    //                 <input
-                    //                     className="form-control"
-                    //                     id="exampleInputEmail1"
-                    //                     type="email"
-                    //                     name="email"
-                    //                     onChange={this.onChange}
-                    //                     aria-describedby="emailHelp"
-                    //                     placeholder="Enter email"
-                    //                 />
-                    //             </div>
-                    //             <div className="form-group">
-                    //                 <label htmlFor="exampleInputPassword1">Password</label>
-                    //                 <input
-                    //                     className="form-control"
-                    //                     id="exampleInputPassword1"
-                    //                     type="password"
-                    //                     name='password'
-                    //                     onChange={this.onChange}
-                    //                     placeholder="Password" />
-                    //             </div>
-                    //             <div className="form-group">
-                    //                 <label htmlFor="exampleInputFirstName1">First Name</label>
-                    //                 <input
-                    //                     className="form-control"
-                    //                     id="exampleInputFirstName1"
-                    //                     type="text"
-                    //                     name="firstName"
-                    //                     onChange={this.onChange}
-                    //                     placeholder="Enter your first name"
-                    //                 />
-                    //             </div>
-                    //             <div className="form-group">
-                    //                 <label htmlFor="exampleInputLastName1">Last Name</label>
-                    //                 <input
-                    //                     className="form-control"
-                    //                     id="exampleInputLastName1"
-                    //                     type="text"
-                    //                     name='lastName'
-                    //                     onChange={this.onChange}
-                    //                     placeholder="Enter your last name" />
-                    //             </div>
-
-                    //             <button type="submit" className="btn btn-primary">Sign Up!</button>
-                    //         </form>
-                    //         {this.state.errorMessage ? <div className='alert alert-danger'>{value.errorMessage}</div> : null}
-                    //         <div className='alert alert-primary'><small>
-                    //             Or sign up using Google or Facebook
-                    //         </small>
-                    //         </div>
-                    //         <div className='m-auto text-center'>
-
-                    //             <FacebookLogin
-                    //                 appId="2368972536494612"
-                    //                 autoLoad={false}
-                    //                 textButton=" Facebook"
-                    //                 fields="name,email,picture"
-                    //                 callback={this.responseFacebook.bind(this, dispatch)}
-                    //                 cssClass="btn facebook-login"
-                    //                 icon="fa-facebook"
-                    //             />
-
-                    //             <GoogleLogin
-                    //                 clientId="193762703842-63qqf0oip1i372ib0a27opsn8opuhpkm.apps.googleusercontent.com"
-                    //                 buttonText="Google"
-                    //                 onSuccess={this.responseGoogle.bind(this, dispatch)}
-                    //                 onFailure={this.responseGoogle}
-                    //                 className='btn google-login ml-5'
-                    //             />
-                    //         </div>
-
-
-                    //     </div>
-
-                    // </div>
                 }}
             </Consumer>
         );

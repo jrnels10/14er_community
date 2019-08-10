@@ -3,7 +3,7 @@ import axios from 'axios';
 export default async (dispatch, userState) => {
     // console.log(dispatch, userState)
     try {
-        const res = await axios.get('http://localhost:5000/users/secret')
+        const res = await axios.get('https://fourteener-community.herokuapp.com/users/secret')
         // console.log(res)
         const userType = res.data.profile;
         if (userType.method === 'google') {
@@ -29,9 +29,9 @@ export default async (dispatch, userState) => {
                         homeState: userType.google.homeState,
                         method: 'google',
                     }
-                })
+                });
 
-            })
+            });
         }
         else if (userType.method === 'local') {
             return userState.setState({
