@@ -1,9 +1,10 @@
 const JWT = require('jsonwebtoken');
 const User = require('./../models/user');
-// const { JWT_secret, state } = require('./../config/keys');
+// const { JWT_secret } = require('./../config/keys');
+const { JWT_secret } = require('./../prodKeys');
+
 const uuidv1 = require('uuid/v1');
 
-const JWT_prod = state === 'production'? process.env.JWT_secret_URI:null;
 
 
 signToken = user => {
@@ -13,7 +14,7 @@ signToken = user => {
         sub: user._id,
         iat: new Date().getTime(),
         exp: new Date().setDate(new Date().getDate() + 1)
-    }, JWT_prod);
+    }, JWT_secret);
 
 }
 

@@ -2,17 +2,14 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 // const keys = require('./config/keys');
+const keys = require('./prodKeys');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
-// const db = process.env.MONGODB_URI
-// console.log(process.env.NODE_ENV)
-const db = process.env.MONGODB_URI;
-    // : keys.mongoDB.dbURI;
 
 
 
-mongoose.connect(db, { useNewUrlParser: true }, () => {
+mongoose.connect(keys.mongoDB.dbURI, { useNewUrlParser: true }, () => {
 
     console.log("connected to mongodb");
 });
