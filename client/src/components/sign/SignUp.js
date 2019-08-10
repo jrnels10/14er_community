@@ -181,7 +181,7 @@ export default class SignUp extends Component {
                                 <div className="w-50 m-auto text-center">
 
                                     <FacebookLogin
-                                        appId="2368972536494612"
+                                        appId={process.env.AppID_URI}
                                         autoLoad={false}
                                         textButton=" Facebook"
                                         fields="name,email,picture"
@@ -192,7 +192,7 @@ export default class SignUp extends Component {
                                 </div>
                                 <div className="w-50 m-auto text-center">
                                     <GoogleLogin
-                                        clientId="193762703842-63qqf0oip1i372ib0a27opsn8opuhpkm.apps.googleusercontent.com"
+                                        clientId={process.env.clientID_URI}
                                         buttonText="Google"
                                         onSuccess={this.responseGoogle.bind(this, dispatch)}
                                         onFailure={this.responseGoogle}
