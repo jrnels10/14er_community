@@ -23,7 +23,7 @@ export default class SignIn extends Component {
         // Step 3) Dispatch 'user just signed up'
         // Step 4) Save the jwtToken into our localStorage
         try {
-            const res = await axios.post('http://localhost:5000/users/signin', { email: this.state.email, password: this.state.password })
+            const res = await axios.post('https://fourteener-community.herokuapp.com/users/signin', { email: this.state.email, password: this.state.password })
             console.log(res)
             dispatch({
                 type: "SIGN_IN",
@@ -54,7 +54,7 @@ export default class SignIn extends Component {
 
     async responseGoogle(dispatch, res) {
         try {
-            const data = await axios.post('http://localhost:5000/users/oauth/google', { access_token: res.accessToken });
+            const data = await axios.post('https://fourteener-community.herokuapp.com/users/oauth/google', { access_token: res.accessToken });
             console.log(data);
             dispatch({
                 type: "SIGN_UP",
@@ -74,7 +74,7 @@ export default class SignIn extends Component {
     async responseFacebook(dispatch, res) {
         // console.log(dispatch, res)
         try {
-            const data = await axios.post('http://localhost:5000/users/oauth/facebook', { access_token: res.accessToken });
+            const data = await axios.post('https://fourteener-community.herokuapp.com/users/oauth/facebook', { access_token: res.accessToken });
             // console.log(data);
             dispatch({
                 type: "SIGN_UP",
