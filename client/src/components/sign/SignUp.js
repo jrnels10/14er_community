@@ -192,7 +192,7 @@ export default class SignUp extends Component {
                                 </div>
                                 <div className="w-50 m-auto text-center">
                                     <GoogleLogin
-                                        clientId={process.env.clientID_URI}
+                                        clientId='193762703842-srn8he4847mntqhqu0fmen7l29s5b6nj.apps.googleusercontent.com'
                                         buttonText="Google"
                                         onSuccess={this.responseGoogle.bind(this, dispatch)}
                                         onFailure={this.responseGoogle}
