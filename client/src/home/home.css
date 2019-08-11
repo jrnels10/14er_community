@@ -10,14 +10,7 @@
     opacity: 1;
 }
 
-hr {
-    margin-top: 1px;
-    margin-left: 7px;
-    /* margin-bottom: 1rem; */
-    border: 0;
-    width: 100%;
-    border-top: 2px solid #ffc10a;
-}
+
 
 .sigin-input {
     background: none;

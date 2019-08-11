@@ -193,7 +193,7 @@ export default class SignUp extends Component {
                                         fields="name,email,picture"
                                         callback={this.responseFacebook.bind(this, value)}
                                         cssClass="btn facebook-login"
-                                        icon="fa-facebook"
+                                        // icon="fa-facebook"
                                     />
                                 </div>
                                 <div className="w-50 m-auto text-center">

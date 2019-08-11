@@ -113,8 +113,8 @@ export class Provider extends Component {
     }
     environment = () => {
         return process.env.NODE_ENV === "development" ? null : this.setState({
-            facebookappId: process.env.AppID_URI,
-            googleClientId: process.env.clientID_URI,
+            facebookappId: "2368972536494612",
+            googleClientId: '193762703842-srn8he4847mntqhqu0fmen7l29s5b6nj.apps.googleusercontent.com',
             axiosServerUrl: 'https://fourteener-community.herokuapp.com'
         })
     }
