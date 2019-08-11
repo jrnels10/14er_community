@@ -24,7 +24,9 @@ html, body, #root {
     max-height: 600px !important;
 
 }
-
+.esri-popup--is-collapsed{
+    margin-bottom:50px;
+}
 @media screen and (min-width: 600px) {
     #app-div {
         background: url(./girlOnMountain.jpg);
@@ -50,6 +52,8 @@ html, body, #root {
     margin: auto;
     border: 2px solid #03385c
 }
-
+.esri-popup--is-collapsed{
+    margin-bottom:0px;
+}
 /* #body-container{
 } */
