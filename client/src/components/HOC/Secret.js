@@ -4,10 +4,11 @@ export default async (dispatch, userState) => {
     // console.log(dispatch, userState)
     try {
         const res = await axios.get('https://fourteener-community.herokuapp.com/users/secret')
-        // console.log(res)
+        console.log(res.data.profile)
         const userType = res.data.profile;
         if (userType.method === 'google') {
             return userState.setState({
+                _id:userType._id,
                 email: userType.google.email,
                 firstName: userType.google.firstName,
                 lastName: userType.google.lastName,
@@ -21,6 +22,7 @@ export default async (dispatch, userState) => {
                 dispatch({
                     type: "USER_INFO",
                     payload: {
+                        _id:userType._id,
                         email: userType.google.email,
                         firstName: userType.google.firstName,
                         lastName: userType.google.lastName,
@@ -35,6 +37,7 @@ export default async (dispatch, userState) => {
         }
         else if (userType.method === 'local') {
             return userState.setState({
+                _id:userType._id,
                 email: userType.local.email,
                 firstName: userType.local.firstName,
                 lastName: userType.local.lastName,
@@ -49,6 +52,7 @@ export default async (dispatch, userState) => {
                 dispatch({
                     type: "USER_INFO",
                     payload: {
+                        _id:userType._id,
                         email: userType.local.email,
                         firstName: userType.local.firstName,
                         lastName: userType.local.lastName,
@@ -63,6 +67,7 @@ export default async (dispatch, userState) => {
         else if (userType.method === 'facebook') {
             // debugger
             return userState.setState({
+                _id:userType._id,
                 email: userType.facebook.email,
                 firstName: userType.facebook.firstName,
                 lastName: userType.facebook.lastName,
@@ -77,6 +82,7 @@ export default async (dispatch, userState) => {
                 dispatch({
                     type: "USER_INFO",
                     payload: {
+                        _id:userType._id,
                         email: userType.facebook.email,
                         firstName: userType.facebook.firstName,
                         lastName: userType.facebook.lastName,

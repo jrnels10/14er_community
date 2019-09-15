@@ -3,8 +3,10 @@ import axios from 'axios';
 
 const Context = React.createContext();
 let wellList = [];
-
+let peaksCompletedList=[];
+let peaksPlannedList=[];
 console.log(process.env)
+export const Conxt = Context;
 const reducer = (state, action) => {
     // debugger
     switch (action.type) {
@@ -20,7 +22,7 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 email: action.payload.email,
-                id: action.payload.id,
+                _id: action.payload._id,
                 token: action.payload.token,
                 isAuthenticated: action.payload.isAuthenticated,
             }
@@ -32,6 +34,7 @@ const reducer = (state, action) => {
         case 'USER_INFO':
             return {
                 ...state,
+                _id:action.payload._id,
                 email: action.payload.email,
                 firstName: action.payload.firstName,
                 lastName: action.payload.lastName,
@@ -75,10 +78,26 @@ const reducer = (state, action) => {
                 wells: [...state.well_number.filter(well_numbers => well_numbers.id !== action.payload.id)]
 
             }
+        case 'CURRENT_PEAK_COMPLETED':
+                peaksCompletedList.push(action.payload);   
+                let peaksList = state.peaks;
+                peaksList.peaksCompleted.push(action.payload.peaksCompleted);   
+                debugger       
+            return {
+                ...state,
+                peaksList
+            }
         default:
             return state;
     }
 }
+
+// this.setState(prevState => ({
+//     input: {
+//         ...prevState.input,
+//         [stateKey]: wtr
+//     }
+// }))
 
 // create a main location for the state that can 
 // be accessed by any component directly
@@ -96,8 +115,12 @@ export class Provider extends Component {
         token: '',
         peaksLayers: '',
         view: '',
+        peaks: {
+            peaksCompleted: [],
+            peaksPlanned: ''
+        },
         map: '',
-        id: '',
+        _id: '',
         errorMessage: '',
         facebookappId: "2368972536494612",
         googleClientId: "193762703842-63qqf0oip1i372ib0a27opsn8opuhpkm.apps.googleusercontent.com",

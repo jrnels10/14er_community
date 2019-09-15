@@ -48,11 +48,11 @@
 }
 
 .edit-input{
-    height: 2vw;
+    /* height: 10px; */
 }
 
 .edit-input-file{
-    height: 2vw;
+    /* height: 2vw; */
     width: 2vw;
     white-space: normal;
     word-wrap: break-word;

@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import { loadModules } from 'esri-loader';
 import Data from './../Data';
+import PeakDetails from './../Peaks/PeakDetails';
+import setContentInfo from './PopupTemplate';
+import ReactDOMServer from 'react-dom/server';
+import PeakPopup from './PopupTemplate';
 
 import { Consumer } from './../../Context';
 
-
+import './map.css'
 
 
 
@@ -14,9 +18,16 @@ class MapClass extends Component {
         super(props);
         this.state = {
             map: null,
-            view: null
+            view: null,
+            completedPeaks: [],
+            showLogin: false
         };
 
+    }
+    onChangeAction = (value, e) => {
+        console.log(value, e)
+        // this.setState({ [e.name]: e.target.id })
+        debugger
     }
 
     componentDidMount() {
@@ -70,6 +81,12 @@ class MapClass extends Component {
                         }
                     }
                 };
+                var measureThisAction = {
+                    title: "Completed ?",
+                    id: "completedPeak",
+                    image:
+                        "https://developers.arcgis.com/javascript/latest/sample-code/popup-actions/live/Measure_Distance16.png"
+                };
                 layer.popupTemplate = {
                     title: "{NAME}",
                     content: [{
@@ -83,7 +100,8 @@ class MapClass extends Component {
                                 digitSeparator: true
                             }
                         }]
-                    }]
+                    }],
+                    actions: [measureThisAction]
                 };
 
                 var webmap = new WebMap({
@@ -95,7 +113,16 @@ class MapClass extends Component {
                     map: webmap,
                     container: "viewDiv",
                     zoom: 7,
-                    center: [-106.3, 39] // longitude, latitude
+                    center: [-106.3, 39],
+                    popup: {
+                        dockEnabled: true,
+                        dockOptions: {
+                            // Disables the dock button from the popup
+                            buttonEnabled: false,
+                            // Ignore the default sizes that trigger responsive docking
+                            breakpoint: false
+                        }
+                    },
                 });
 
                 var basemapGallery = new BasemapGallery({
@@ -123,7 +150,7 @@ class MapClass extends Component {
                         exactMatch: false,
                         outFields: ["*"],
                         name: "14ers",
-                        placeholder: "Longs Peak"
+                        placeholder: "select peak"
                     }]
                 });
                 // Adds the search widget below other elements in
@@ -167,26 +194,47 @@ class MapClass extends Component {
                 view.on("click", function (event) {
                     view.hitTest(event).then(function (response) {
                         console.log(response)
+                        // that.setState({currentPeak:reponse})
+                        // console.log(view.popup)
                     })
                 })
+                view.popup.on("trigger-action", function (event) {
+                    if (event.action.id === "completedPeak") {
+                        that.setState({ showLogin: !that.state.showLogin, currentPeak: view.popup.selectedFeature })
+                    }
+                });
             })
             .catch(err => {
                 // handle any errors
                 console.error(err);
             });
+    };
+
+    toggleModal = () => {
+        document.getElementById('')
+        this.setState({
+            showLogin: !this.state.showLogin,
+            currentPeak:''
+        });
     }
 
     render() {
         return (
             <Consumer>
                 {value => {
-                    // console.log(value)
+                    console.log(this.state.currentPeak)
                     return <React.Fragment>
-                        <div className='w-100 h-100 bg-light' id="viewDiv">
+                        <div className='w-100 h-100 bg-light position-relative' id="viewDiv">
                             <div className="position-absolute m-auto" id="search-div-container">
 
                                 <div id="search-div"></div>
                             </div>
+                            {this.state.currentPeak ?
+                                <PeakDetails display={this.state.showLogin} toggle={this.toggleModal} peak={this.state.currentPeak} data={value}/>
+                                : null}
+                            {/* <div className={`peak-detail-${this.state.showLogin ? 'show' : 'hide'}`} id="WelcomeModal">
+                                Hello
+                            </div> */}
                         </div>
                     </React.Fragment>
                 }}

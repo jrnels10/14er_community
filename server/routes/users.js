@@ -14,16 +14,16 @@ const passportJWT = passport.authenticate('jwt', { session: false });
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        if(file===undefined){
+        if (file === undefined) {
 
-        }else{
+        } else {
             cb(null, './uploads');
         }
     },
     filename: function (req, file, cb) {
-        if(file===undefined){
+        if (file === undefined) {
 
-        }else{
+        } else {
             cb(null, file.originalname)
         }
     }
@@ -42,9 +42,6 @@ console.log(passportSignIn)
 router.route('/signin')
     .post(validateBody(schema.authSchema), passportSignIn, UserController.signIn);
 
-router.route('/update/:email')
-    .put(upload.single('profilePicture'), UserController.updateUser);
-    
 router.route('/oauth/google')
     .post(passportGoogle, UserController.googleOAuth);
 
@@ -53,5 +50,12 @@ router.route('/oauth/facebook')
 
 router.route('/secret')
     .get(passportJWT, UserController.secret);
+
+router.route('/update/:email')
+    .put(upload.single('profilePicture'), UserController.updateUser);
+
+router.route('/peaksCompleted/:email')
+    .put(UserController.peaksCompleted);
+
 
 module.exports = router;

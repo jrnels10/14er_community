@@ -1,14 +1,14 @@
 const JWT = require('jsonwebtoken');
 const User = require('./../models/user');
-// const { JWT_secret } = require('./../config/keys');
-const { JWT_secret } = require('./../prodKeys');
+const { JWT_secret } = require('./../config/keys');
+// const { JWT_secret } = require('./../prodKeys');
 
 const uuidv1 = require('uuid/v1');
 
 
 
 signToken = user => {
-    console.log("user", user)
+    // console.log("user", user)
     return JWT.sign({
         iss: 'strava',
         sub: user._id,
@@ -22,10 +22,10 @@ module.exports = {
     signUp: async (req, res, next) => {
         // console.log(req.file)
         const { email, password, firstName, lastName } = req.value.body;
-        console.log(req.value.body)
+        // console.log(req.value.body)
         // Check if user has the same email
         const foundUser = await User.findOne({ 'local.email': email });
-        console.log('foundUser', foundUser)
+        // console.log('foundUser', foundUser)
         if (foundUser) {
             return res.status(403).send({ error: 'email is already in use' })
         }
@@ -59,13 +59,13 @@ module.exports = {
 
     googleOAuth: async (req, res, next) => {
         // Generate token
-        console.log(req.user)
+        // console.log(req.user)
         const token = signToken(req.user);
         res.status(200).json({ token });
     },
     facebookOAuth: async (req, res, next) => {
         // Generate token
-        console.log('req.user', req.user);
+        // console.log('req.user', req.user);
         const token = signToken(req.user);
         res.status(200).json({ token });
     },
@@ -74,6 +74,17 @@ module.exports = {
         // console.log('req',req.user)
         // console.log('next' ,next)
         res.json({ secret: 'resource', profile: req.user })
+    },
+    peaksCompleted: async (req, res, next) => {
+        console.log('peaks completed', req.body)
+        console.log('id: ', req.body.user)
+        User.findOne({ '_id': req.body.user }).then(function (item) {
+            console.log("findOne", item)
+            // res.send(item)
+        });
+        return User.findOneAndUpdate({ '_id': req.body.user }, { $push: { peaksCompleted: req.body.peaks } }).then(function () {
+            console.log("updated")
+        });
     },
     updateUser: async (req, res, next) => {
         var obj = JSON.parse(req.body.user);
@@ -84,7 +95,7 @@ module.exports = {
         else {
             picture = req.file.originalname;
         }
-        console.log("Test", obj.methodType)
+        // console.log("Test", obj.methodType)
         if (req.body.data === "google") {
             const googleObject = {
                 "google.profilePicture": picture,
@@ -94,7 +105,7 @@ module.exports = {
                 "google.homeTown": obj.homeTown,
                 "google.homeState": obj.homeState
             }
-            console.log("homeTown",obj.homeTown)
+            // console.log("homeTown",obj.homeTown)
             return User.findOneAndUpdate({ 'google.email': req.params.email }, googleObject).then(function () {
                 console.log("updated")
                 User.findOne({ 'google.email': req.params.email }).then(function (item) {
@@ -111,7 +122,7 @@ module.exports = {
                 "local.homeTown": obj.homeTown,
                 "local.homeState": obj.homeState
             }
-            console.log("local",localObject)
+            console.log("local", localObject)
 
             return User.findOneAndUpdate({ 'local.email': req.params.email }, localObject).then(function () {
                 console.log("updated")
@@ -129,7 +140,7 @@ module.exports = {
                 "facebook.homeTown": obj.homeTown,
                 "facebook.homeState": obj.homeState
             }
-            return User.findOneAndUpdate({ 'facebook.email': req.params.email },facebookObject).then(function () {
+            return User.findOneAndUpdate({ 'facebook.email': req.params.email }, facebookObject).then(function () {
                 console.log("updated")
                 User.findOne({ 'facebook.email': req.params.email }).then(function (item) {
                     res.send(item)

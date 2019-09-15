@@ -1,0 +1,16 @@
+/* .peak-detail-show{
+    display: block;
+    z-index: 10000;
+    height: 75vh;
+    width: 100vw;
+    transition: height 0.5s;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.peak-detail-hide{
+    display: block;
+    z-index: 1000;
+    height: 0vh;
+    width: 0vw;
+} */

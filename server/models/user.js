@@ -25,11 +25,11 @@ const userSchema = new Schema({
         lastName: {
             type: String
         },
-        homeTown:{
-            type:String,
+        homeTown: {
+            type: String,
         },
-        homeState:{
-            type:String,
+        homeState: {
+            type: String,
         },
         profilePicture: {
             type: String
@@ -49,11 +49,11 @@ const userSchema = new Schema({
         lastName: {
             type: String,
         },
-        homeTown:{
-            type:String,
+        homeTown: {
+            type: String,
         },
-        homeState:{
-            type:String,
+        homeState: {
+            type: String,
         },
         profilePicture: {
             type: String
@@ -73,16 +73,24 @@ const userSchema = new Schema({
         lastName: {
             type: String
         },
-        homeTown:{
-            type:String,
+        homeTown: {
+            type: String,
         },
-        homeState:{
-            type:String,
+        homeState: {
+            type: String,
         },
         profilePicture: {
             type: String
         }
     },
+    peaksCompleted: [{
+        peakName: {
+            type: String
+        },
+        dateCompleted: {
+            type: Date
+        }
+    }]
     // index: { unique: true }
 });
 
@@ -97,7 +105,7 @@ userSchema.pre('save', async function (next) {
         const salt = await bcrypt.genSalt(10);
         const passwordHashed = await bcrypt.hash(this.local.password, salt);
         this.local.password = passwordHashed;
-        console.log('hashed password:',this.local.password)
+        console.log('hashed password:', this.local.password)
 
         next();
     } catch (error) {
