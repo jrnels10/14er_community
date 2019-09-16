@@ -57,5 +57,4 @@ router.route('/update/:email')
 router.route('/peaksCompleted/:email')
     .put(UserController.peaksCompleted);
 
-
 module.exports = router;

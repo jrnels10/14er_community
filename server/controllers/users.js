@@ -51,7 +51,7 @@ module.exports = {
         res.status(200).json({ token: token });
     },
     signIn: async (req, res, next) => {
-        console.log(req.user)
+        console.log('sign in', req.user)
         //generate token
         const token = await signToken(req.user);
         res.status(200).json({ token });
@@ -78,13 +78,36 @@ module.exports = {
     peaksCompleted: async (req, res, next) => {
         console.log('peaks completed', req.body)
         console.log('id: ', req.body.user)
-        User.findOne({ '_id': req.body.user }).then(function (item) {
-            console.log("findOne", item)
-            // res.send(item)
-        });
         return User.findOneAndUpdate({ '_id': req.body.user }, { $push: { peaksCompleted: req.body.peaks } }).then(function () {
             console.log("updated")
+            User.findOne({ '_id': req.body.user }).then(function (item) {
+                console.log("findOne", item)
+                res.send(item)
+            });
         });
+    },
+
+    getAll: async (req, res, next) => {
+        console.log("Get all called")
+        // console.log(User)
+        // User.findOne({ '_id':  "5d420fb66a742f6264079fae" }).then(function (item) {
+        //     console.log("findOne", item)
+        //     res.send(item)
+        // });
+       return User.find().then(user => {
+            console.log(user)
+            var userMap = [];
+
+            user.forEach(function (user,idx) {
+                userMap.push({userId:user._id, peaks:user.peaksCompleted});
+            });
+
+            res.send(userMap);
+            console.log(userMap)
+            return userMap
+        });
+
+        // res.json({ peaks: req.peaks })
     },
     updateUser: async (req, res, next) => {
         var obj = JSON.parse(req.body.user);

@@ -82,7 +82,7 @@ const reducer = (state, action) => {
                 peaksCompletedList.push(action.payload);   
                 let peaksList = state.peaks;
                 peaksList.peaksCompleted.push(action.payload.peaksCompleted);   
-                debugger       
+           
             return {
                 ...state,
                 peaksList

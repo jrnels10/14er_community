@@ -89,7 +89,16 @@ const userSchema = new Schema({
         },
         dateCompleted: {
             type: Date
-        }
+        },
+        difficulty: {
+            type: Number
+        },
+        routeTaken: {
+            type: String
+        },
+        duration: {
+            type: String
+        },
     }]
     // index: { unique: true }
 });
