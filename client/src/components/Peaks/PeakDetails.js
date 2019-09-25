@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DateTimePicker from 'react-datetime-picker';
-import { updatePeaksCompleted } from './../../API/Update';
+import { updatePeaksCompleted } from '../../API/Peaks';
 
 import './peaks.css';
 

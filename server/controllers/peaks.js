@@ -1,7 +1,7 @@
 const User = require('./../models/user');
 
 module.exports = {
-    getAll: async (req, res, next) => {
+    peaksCompleted: async (req, res, next) => {
        return User.find().then(user => {
             var userMap = [];
 
@@ -10,7 +10,6 @@ module.exports = {
             });
 
             res.send(userMap);
-            console.log(userMap)
             return userMap
         });
 

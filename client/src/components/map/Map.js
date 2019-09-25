@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { loadModules } from 'esri-loader';
 import Data from './../Data';
 import PeakDetails from './../Peaks/PeakDetails';
-import { PeakFeatureLayer } from './../Peaks/Peaks';
+import { PeakFeatureLayer, PeaksCompleted } from './../Peaks/Peaks';
 import { searchWidget } from './SearchWidget';
 import setContentInfo from './PopupTemplate';
 import ReactDOMServer from 'react-dom/server';
 import PeakPopup from './PopupTemplate';
-
+import { getAllPeaksCompleted } from './../../API/Peaks';
 import { Consumer } from './../../Context';
 
 import './map.css'
@@ -22,33 +22,42 @@ class MapClass extends Component {
             map: null,
             view: null,
             completedPeaks: [],
-            showLogin: false
+            showLogin: false,
+            peakListDetails: ''
         };
 
     }
-    onChangeAction = (value, e) => {
-        console.log(value, e)
-        // this.setState({ [e.name]: e.target.id })
-        debugger
-    }
+    // onChangeAction = (value, e) => {
+    //     console.log(value, e)
+    //     // this.setState({ [e.name]: e.target.id })
+    //     debugger
+    // }
+    componentWillMount = async () => {
+        const { dispatch } = this.props.data;
+        const peaksRes = await getAllPeaksCompleted();
+        let peakList = [];
+        peaksRes.data.map(peak => {
+            if (peak.peaks.length > 0) {
+                peakList.push(peak);
+            }
+            return peakList;
+        });
+        this.setState({ peakListDetails: peakList })
+        await dispatch({
+            type: "ALL_PEAKS_COMPLETED",
+            payload: {
+                allPeaksCompleted: peakList
+            }
+        })
 
-    componentDidMount() {
         // first, we use Dojo's loader to require the map class
         const that = this;
         loadModules(['esri/views/MapView',
-            "esri/layers/GraphicsLayer",
-            "esri/Graphic",
-            "esri/geometry/Point",
-            "esri/widgets/Search",
-            "esri/symbols/SimpleMarkerSymbol",
-            "esri/renderers/SimpleRenderer",
             'esri/WebMap',
             "esri/widgets/BasemapGallery",
-            "esri/widgets/Expand",
-            "esri/layers/FeatureLayer"])
-            .then(async ([MapView, GraphicsLayer, Graphic, Point, Search, SimpleMarkerSymbol, SimpleRenderer, WebMap, BasemapGallery, Expand, FeatureLayer]) => {
-                let layer = await PeakFeatureLayer()
-
+            "esri/widgets/Expand"])
+            .then(async ([MapView, WebMap, BasemapGallery, Expand]) => {
+                let layer = await PeakFeatureLayer(this.state.peakListDetails)
                 var webmap = new WebMap({
                     basemap: "topo"
                 });
@@ -67,7 +76,9 @@ class MapClass extends Component {
                         }
                     },
                 });
+           
 
+                // console.log(peaksCompletedLayer)
                 var basemapGallery = new BasemapGallery({
                     view: view
                 });

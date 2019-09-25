@@ -8,8 +8,8 @@ const { validateBody, schema } = require('../helpers/routeHelpers');
 const PeakController = require('../controllers/peaks');
 
 
-router.route('/getAll')
-    .get(PeakController.getAll);
+router.route('/peakscompleted')
+    .get(PeakController.peaksCompleted);
 
 
 module.exports = router;

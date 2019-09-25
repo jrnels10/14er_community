@@ -3,8 +3,8 @@ import axios from 'axios';
 
 const Context = React.createContext();
 let wellList = [];
-let peaksCompletedList=[];
-let peaksPlannedList=[];
+let peaksCompletedList = [];
+// let peaksPlannedList = [];
 console.log(process.env)
 export const Conxt = Context;
 const reducer = (state, action) => {
@@ -34,7 +34,7 @@ const reducer = (state, action) => {
         case 'USER_INFO':
             return {
                 ...state,
-                _id:action.payload._id,
+                _id: action.payload._id,
                 email: action.payload.email,
                 firstName: action.payload.firstName,
                 lastName: action.payload.lastName,
@@ -79,13 +79,21 @@ const reducer = (state, action) => {
 
             }
         case 'CURRENT_PEAK_COMPLETED':
-                peaksCompletedList.push(action.payload);   
-                let peaksList = state.peaks;
-                peaksList.peaksCompleted.push(action.payload.peaksCompleted);   
-           
+            peaksCompletedList.push(action.payload);
+            let peaksList = state.peaks;
+            peaksList.peaksCompleted.push(action.payload.peaksCompleted);
+
             return {
                 ...state,
                 peaksList
+            }
+        case 'ALL_PEAKS_COMPLETED':
+            let allPeaksList = state.peaks;
+            allPeaksList.allPeaksCompleted = action.payload.allPeaksCompleted;
+
+            return {
+                ...state,
+                allPeaksList
             }
         default:
             return state;
@@ -117,7 +125,8 @@ export class Provider extends Component {
         view: '',
         peaks: {
             peaksCompleted: [],
-            peaksPlanned: ''
+            peaksPlanned: '',
+            allPeaksCompleted: ''
         },
         map: '',
         _id: '',
