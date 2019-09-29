@@ -17,11 +17,21 @@
 
 .peak-detail-show-container {
     display: block;
+    margin: auto;
+    text-align: center
+}
+.peak-detail-show-container label,.peak-detail-show-container input {
+   width: 75%
 }
 .peak-detail-hide-container {
     display: none;
 }
-
+.react-datetime-picker{
+    width: 100%
+}
+.react-datetime-picker__wrapper{
+    margin: auto
+}
 .peak-detail-show {
     overflow: hidden;
     z-index: 1000;

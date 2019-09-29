@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Consumer } from './../Context';
+import FilterPeaks from './Peaks/FilterPeaks';
 import axios from 'axios';
 
 import './../Style/NavStyle.css';
@@ -66,7 +67,7 @@ export default class Navbar extends Component {
                         </button>
 
                         <div className={`navbar-custom-${show} ${home}`} id="navbarSupportedContent">
-
+                            {/* <FilterPeaks data={value}/> */}
                             <ul className={`navbar-nav ul-${show} mr-auto text-${home}`}>
                                 {this.state.show ?
                                     <React.Fragment>

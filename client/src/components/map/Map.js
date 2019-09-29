@@ -57,7 +57,7 @@ class MapClass extends Component {
             "esri/widgets/BasemapGallery",
             "esri/widgets/Expand"])
             .then(async ([MapView, WebMap, BasemapGallery, Expand]) => {
-                let layer = await PeakFeatureLayer(this.state.peakListDetails)
+                let layer = await PeakFeatureLayer(dispatch)
                 var webmap = new WebMap({
                     basemap: "topo"
                 });
@@ -69,14 +69,14 @@ class MapClass extends Component {
                     zoom: 7,
                     center: [-106.3, 39],
                     popup: {
-                        dockEnabled: true,
-                        dockOptions: {
-                            buttonEnabled: false,
-                            breakpoint: false
-                        }
+                        // dockEnabled: true,
+                        // dockOptions: {
+                        //     buttonEnabled: false,
+                        //     breakpoint: false
+                        // }
                     },
                 });
-           
+
 
                 // console.log(peaksCompletedLayer)
                 var basemapGallery = new BasemapGallery({

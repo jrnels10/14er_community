@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DateTimePicker from 'react-datetime-picker';
-import { updatePeaksCompleted } from '../../API/Peaks';
+import { updatePeaksCompleted, updatePeaksAttributes } from '../../API/Peaks';
+// import {PeakFeatureLayer} from './Peaks';
 
 import './peaks.css';
 
@@ -20,19 +21,20 @@ export default class PeakDetails extends Component {
             user: this.props.data._id, peaks: {
                 peakName: this.props.peak.attributes.name,
                 dateCompleted: this.state.date,
-                difficulty: this.state.difficulty,
+                difficulty: parseInt(this.state.difficulty),
                 routeTaken: this.state.routeTaken,
                 duration: this.state.duration
             }
         };
         updatePeaksCompleted(fouteenerListCompleted);
+        updatePeaksAttributes(fouteenerListCompleted);
         this.props.data.dispatch({
             type: "CURRENT_PEAK_COMPLETED",
             payload: {
                 peaksCompleted: {
                     peakName: this.props.peak.attributes.name,
                     dateCompleted: this.state.date,
-                    difficulty: this.state.difficulty,
+                    difficulty: parseInt(this.state.difficulty),
                     routeTaken: this.state.routeTaken,
                     duration: this.state.duration
                 }
@@ -50,22 +52,22 @@ export default class PeakDetails extends Component {
         return <div className={`peak-detail-${this.props.display ? 'show' : 'hide'}`}>
             <div className={`peak-detail-${this.props.display ? 'show' : 'hide'}-container`} id='peak-details-container'>
                 <label>{peak.attributes.name}</label>
-                <button className='btn close-peak-details-container' onClick={this.props.toggle}>Close</button>
+                <button className='btn btn-warning close-peak-details-container' onClick={this.props.toggle}>Close</button>
                 <div>
                     <DateTimePicker
                         onChange={this.onChange}
                         value={this.state.date}
                     />
                 </div>
-                <span>Difficulty</span>
+                <label>Difficulty</label>
                 <input type='number' name="difficulty" value={this.state.difficulty} onChange={this.onUpdate.bind(this)} />
-                <span>Route Taken</span>
+                <label>Route Taken</label>
 
                 <input type='text' name="routeTaken" value={this.state.routeTaken} onChange={this.onUpdate.bind(this)} />
-                <span>Duration</span>
+                <label>Duration</label>
 
                 <input type='text' name="duration" value={this.state.duration} onChange={this.onUpdate.bind(this)} />
-                <button className="btn check-in-complete" onClick={this.checkInComplete}>Check In</button>
+                <button className="btn btn-primary check-in-complete" onClick={this.checkInComplete}>Check In</button>
             </div>
         </div>
     }

@@ -1,44 +1,51 @@
 import Data from './../Data';
 import { loadModules } from 'esri-loader';
+import { getPeaksDetails } from './../../API/Peaks';
+
+
 
 const userPeaksFields = [{
+    sqlType: "sqlTypeOther",
     name: "completedCount",
     alias: "completedCount",
     type: "integer"
+}, {
+    sqlType: "sqlTypeOther",
+    name: "userCompleted",
+    alias: "userCompleted",
+    type: "blob"
 },
 {
-    name: "dateCompleted",
-    alias: "dateCompleted",
-    type: "string"
+    sqlType: "sqlTypeOther",
+    name: "userDifficulty",
+    alias: "userDifficulty",
+    type: "blob"
 }, {
-    name: "difficulty",
-    alias: "difficulty",
-    type: "integer"
+    sqlType: "sqlTypeOther",
+    name: "avgDifficulty",
+    alias: "avgDifficulty",
+    type: "double"
 }, {
+    sqlType: "sqlTypeOther",
     name: "duration",
     alias: "duration",
     type: "string"
 }, {
+    sqlType: "sqlTypeOther",
     name: "peakName",
     alias: "peakName",
     type: "string"
 }, {
+    sqlType: "sqlTypeOther",
     name: "routeTaken",
     alias: "routeTaken",
     type: "string"
 }];
 
 
-export async function PeakFeatureLayer(peaksCompleted) {
-    const peakList = [];
-    await peaksCompleted.map(peak => {
-        peak.peaks.map(userPeak => {
 
-            peakList.push(userPeak)
-            return peakList
-        })
-        return peakList
-    });
+export async function PeakFeatureLayer( dispatch) {
+    const peakLayerData = await getPeaksDetails();
     return loadModules(['esri/views/MapView',
         "esri/layers/GraphicsLayer",
         "esri/Graphic",
@@ -62,16 +69,22 @@ export async function PeakFeatureLayer(peaksCompleted) {
                 var point = new Point(item.geometry);
                 var g = new Graphic({
                     geometry: point,
-                    attributes: Object.assign(item.attributes, { completedCount: 0 }),
+                    attributes: item.attributes
                 });
-                peakList.map(peak => {
-                    if (item.attributes.name === peak.peakName) {
-                        ++item.attributes.completedCount;
-                        layerArray.push(peak.peakName)
-                        return g.attributes = Object.assign(item.attributes, peak)
+                peakLayerData.data.map(peakDetail => {
+                    // attributes: item.attributes,
+                    if (peakDetail.name === item.attributes.name) {
+                        let att = {
+                            completedCount: peakDetail.attribute.completed.completedCount,
+                            userCompleted: peakDetail.attribute.completed.userCompleted,
+                            avgDifficulty: peakDetail.attribute.difficulty.avgDifficulty,
+                            userDifficulty: peakDetail.attribute.difficulty.userDifficulty
+                        }
+                       return g.attributes = Object.assign(item.attributes, att)
                     }
-                    return g;
-                });
+                    else {
+                    }
+                })
                 return gLayer.add(g);
             });
 
@@ -79,67 +92,70 @@ export async function PeakFeatureLayer(peaksCompleted) {
                 return fields.push(item);
             })
             var layerFields = fields;
-            console.log(layerArray)
             var layer = new FeatureLayer({
+                id: "peakLayer",
                 source: gLayer.graphics,
                 objectIdField: "id",
                 fields: layerFields,
                 geometryType: "point"
             });
-            let counts = layerArray.reduce((map, fruit) => {
-                map[fruit] = (map[fruit] || 0) + 1;
-                return map;
-            }, {});
-            let arr = Object.values(counts);
-            let minOccurence = Math.min(...arr);
-            let maxOccurence = Math.max(...arr);
-            console.log(minOccurence,maxOccurence)
+            console.log(layer)
+            dispatch({
+                type: "PEAK_OCCURENCE_ARRAY",
+                payload: {
+                    peakOccurenceArray: layerArray
+                }
+            })
+            var colorVisVar = {
+                type: "color",
+                field: "avgDifficulty",
+                // normalizationField: "completedCount",
+                stops: [
+                    {
+                        value: 0,
+                        color: "#FFFCD4"
+                    },
+                    {
+                        value: 10,
+                        color: "#0D2644"
+                    }
+                ]
+            };
+
             var sizeVisVar = {
                 type: "size",
                 field: "completedCount",
+                // normalizationField: "SQMI",
                 stops: [
                     {
                         value: 0,
                         size: 6
-                      
                     },
                     {
-                        value: maxOccurence,
-                        size: 30
-                     
+                        value: 10,
+                        size: 40
                     }
                 ]
             };
-            var colorVisVar = {
-                type: "color",
-                field: "difficulty",
-                stops: [
-                  {
-                    value: 1,
-                    color: "#FFFCD4"
-                  },
-                  {
-                    value: 10,
-                    color: "#0D2644"
-                  }
-                ]
-              };
 
             var renderer = {
-                type: "simple", 
-                                symbol: {
+                type: "simple", // autocasts as new SimpleRenderer()
+                // Define a default marker symbol with a small outline
+                symbol: {
                     type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
                     outline: {
                         // autocasts as new SimpleLineSymbol()
                         color: [128, 128, 128],
                         width: 0.5
-                    }
+                    },
+                    size: 6,
+                    color:'black'
                 },
-                label: "zip code area centroid",
                 // Set the color and size visual variables on the renderer
-                visualVariables: [colorVisVar,sizeVisVar]
+                visualVariables: [sizeVisVar, colorVisVar]
             };
-            layer.renderer = renderer;
+
+            layer.renderer = renderer
 
             var measureThisAction = {
                 title: "Completed ?",
@@ -159,6 +175,23 @@ export async function PeakFeatureLayer(peaksCompleted) {
                         format: {
                             digitSeparator: true
                         }
+                    }, {
+                        fieldName: "elev_meter",
+                        label: "Elevation meter",
+                        // Autocasts as new FieldInfoFormat()
+                        format: {
+                            digitSeparator: true
+                        }
+                    }, {
+                        fieldName: "avgDifficulty",
+                        label: "Average Difficulty",
+                        // Autocasts as new FieldInfoFormat()
+                        format: {
+                            digitSeparator: true
+                        }
+                    }, {
+                        fieldName: "completedCount",
+                        label: "Completed by Users"
                     }]
                 }],
                 actions: [measureThisAction]
@@ -182,7 +215,7 @@ export async function PeaksCompleted(peaksCompleted) {
         "esri/layers/FeatureLayer"])
         .then(async ([MapView, GraphicsLayer, Graphic, Point, Search, SimpleMarkerSymbol, SimpleRenderer, WebMap, BasemapGallery, Expand, FeatureLayer]) => {
 
-            return peaksCompleted.renderer = {
+            return peaksCompleted.heatMap = {
                 type: "heatmap",
                 field: "crime_count",
                 colorStops: [

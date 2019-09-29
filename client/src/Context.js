@@ -61,11 +61,12 @@ const reducer = (state, action) => {
                 map: action.payload.map,
                 peaksLayers: action.payload.peaksLayers,
             }
-        case 'ADD_WELL':
-            wellList.push(action.payload);
+        case 'PEAK_OCCURENCE_ARRAY':
+            let peakOccurence = state.peaks;
+            peakOccurence.peakOccurenceArray = action.payload.peakOccurenceArray;
             return {
                 ...state,
-                wells: wellList
+                peakOccurence
             }
         case 'REMOVE_WELL':
             // //debugger
@@ -126,7 +127,8 @@ export class Provider extends Component {
         peaks: {
             peaksCompleted: [],
             peaksPlanned: '',
-            allPeaksCompleted: ''
+            allPeaksCompleted: '',
+            peakOccurenceArray:''
         },
         map: '',
         _id: '',

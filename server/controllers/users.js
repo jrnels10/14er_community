@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken');
 const User = require('./../models/user');
-const { JWT_secret } = require('./../config/keys');
-// const { JWT_secret } = require('./../prodKeys');
+// const { JWT_secret } = require('./../config/keys');
+const { JWT_secret } = require('./../prodKeys');
 
 const uuidv1 = require('uuid/v1');
 
@@ -76,7 +76,7 @@ module.exports = {
         res.json({ secret: 'resource', profile: req.user })
     },
     peaksCompleted: async (req, res, next) => {
-        console.log('peaks completed', req.body)
+        console.log('user controller')
         console.log('id: ', req.body.user)
         return User.findOneAndUpdate({ '_id': req.body.user }, { $push: { peaksCompleted: req.body.peaks } }).then(function () {
             console.log("updated")
