@@ -6,8 +6,8 @@ const FacebookTokenStrategy = require('passport-facebook-token');
 const { ExtractJwt } = require('passport-jwt');
 const User = require('./models/user');
 
-// const { JWT_secret, google, facebook } = require('./config/keys');
-const { JWT_secret, google, facebook } = require('./prodKeys');
+const { JWT_secret, google, facebook } = require('./config/keys');
+// const { JWT_secret, google, facebook } = require('./prodKeys');
 
 // JSON WEB TOKENS STRATEGY
 passport.use(new JwtStrategy({

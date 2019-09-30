@@ -28,12 +28,13 @@
       // Set a timeout...
       setTimeout(function () {
         // Hide the address bar!
+        document.getElementById('body').setAttribute("style", `height: ${window.innerHeight}px !important`);
         window.scrollTo(0, 1);
       }, 0);
     });</script>
 </head>
 
-<body>
+<body id='body'>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
