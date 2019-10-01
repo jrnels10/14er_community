@@ -88,6 +88,14 @@ const reducer = (state, action) => {
                 ...state,
                 peaksList
             }
+        case 'CURRENT_PEAK_SELECTED':
+            let peaksCurrentList = state.peaks;
+            peaksCurrentList.currentPeakSelected=action.payload.currentPeakSelected;
+
+            return {
+                ...state,
+                peaksCurrentList
+            }
         case 'ALL_PEAKS_COMPLETED':
             let allPeaksList = state.peaks;
             allPeaksList.allPeaksCompleted = action.payload.allPeaksCompleted;
@@ -125,10 +133,11 @@ export class Provider extends Component {
         peaksLayers: '',
         view: '',
         peaks: {
+            currentPeakSelected: '',
             peaksCompleted: [],
             peaksPlanned: '',
             allPeaksCompleted: '',
-            peakOccurenceArray:''
+            peakOccurenceArray: ''
         },
         map: '',
         _id: '',

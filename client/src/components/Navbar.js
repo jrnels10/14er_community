@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Consumer } from './../Context';
-import FilterPeaks from './Peaks/FilterPeaks';
 import axios from 'axios';
 
 import './../Style/NavStyle.css';

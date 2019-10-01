@@ -1,17 +1,13 @@
 import React, { Component } from 'react'
 import { loadModules } from 'esri-loader';
-import Data from './../Data';
 import PeakDetails from './../Peaks/PeakDetails';
-import { PeakFeatureLayer, PeaksCompleted } from './../Peaks/Peaks';
+import { PeakFeatureLayer } from './../Peaks/Peaks';
 import { searchWidget } from './SearchWidget';
-import setContentInfo from './PopupTemplate';
-import ReactDOMServer from 'react-dom/server';
-import PeakPopup from './PopupTemplate';
 import { getAllPeaksCompleted } from './../../API/Peaks';
 import { Consumer } from './../../Context';
-
 import './map.css'
 
+const options = { version: '4.11' };
 
 
 class MapClass extends Component {
@@ -21,17 +17,14 @@ class MapClass extends Component {
         this.state = {
             map: null,
             view: null,
+            viewType:'3D',
             completedPeaks: [],
             showLogin: false,
             peakListDetails: ''
         };
 
-    }
-    // onChangeAction = (value, e) => {
-    //     console.log(value, e)
-    //     // this.setState({ [e.name]: e.target.id })
-    //     debugger
-    // }
+    };
+
     componentWillMount = async () => {
         const { dispatch } = this.props.data;
         const peaksRes = await getAllPeaksCompleted();
@@ -53,28 +46,32 @@ class MapClass extends Component {
         // first, we use Dojo's loader to require the map class
         const that = this;
         loadModules(['esri/views/MapView',
+            'esri/views/SceneView',
             'esri/WebMap',
             "esri/widgets/BasemapGallery",
-            "esri/widgets/Expand"])
-            .then(async ([MapView, WebMap, BasemapGallery, Expand]) => {
+            "esri/widgets/Expand"],options)
+            .then(async ([MapView, SceneView, WebMap, BasemapGallery, Expand]) => {
                 let layer = await PeakFeatureLayer(dispatch)
                 var webmap = new WebMap({
-                    basemap: "topo"
+                    basemap: "topo",
+                    ground: "world-elevation"
                 });
                 webmap.add(layer)
 
-                var view = new MapView({
-                    map: webmap,
+                // var view = new MapView({
+                //     map: webmap,
+                //     container: "viewDiv",
+                //     zoom: 7,
+                //     center: [-106.3, 39],
+                // });
+
+               const view = new SceneView({
                     container: "viewDiv",
-                    zoom: 7,
-                    center: [-106.3, 39],
-                    popup: {
-                        // dockEnabled: true,
-                        // dockOptions: {
-                        //     buttonEnabled: false,
-                        //     breakpoint: false
-                        // }
-                    },
+                    map: webmap,
+                    camera: {
+                        position: [-106.3, 39, 195184],
+                        tilt: 45
+                    }
                 });
 
 
@@ -94,7 +91,23 @@ class MapClass extends Component {
 
                 //adds search widget to map
                 await searchWidget(view, layer);
-
+                view.on("click", function (event) {
+                    view.hitTest(event)
+                    .then((results) => {
+                        that.props.data.dispatch({
+                            type:"CURRENT_PEAK_SELECTED",
+                            payload:{
+                                currentPeakSelected:''
+                            }
+                        })
+                        that.props.data.dispatch({
+                            type:"CURRENT_PEAK_SELECTED",
+                            payload:{
+                                currentPeakSelected:results.results
+                            }
+                        })
+                    })
+                });
 
                 view.whenLayerView(layer)
                     .then(function () {
@@ -128,15 +141,28 @@ class MapClass extends Component {
         });
     }
 
+    switchViewType = (e) => {
+        this.setState({ viewType: !this.state.viewType })
+        var switchButton = document.getElementById("switch-btn");
+        switchButton.addEventListener("click", function () {
+
+        });
+    }
+
+
     render() {
         return (
             <Consumer>
                 {value => {
-                    console.log(this.state.currentPeak)
+                    // console.log(this.state.currentPeak)
                     return <React.Fragment>
                         <div className='w-100 h-100 bg-light position-relative' id="viewDiv">
+                            {/* <input className="esri-component esri-widget--button esri-widget esri-interactive"
+                                onChange={this.switchViewType}
+                                id="switch-btn"
+                                value={this.state.viewType}
+                            /> */}
                             <div className="position-absolute m-auto" id="search-div-container">
-
                                 <div id="search-div"></div>
                             </div>
                             {this.state.currentPeak ?

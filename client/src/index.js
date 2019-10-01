@@ -17,7 +17,7 @@ import authGuard from './components/HOC/authGuard';
 
 ReactDOM.render(
     <Provider>
-        <BrowserRouter>
+        <BrowserRouter basename={'https://fourteener-community.herokuapp.com/'}>
             <App>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/signup" component={SignUp} />

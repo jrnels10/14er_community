@@ -9,24 +9,9 @@
     background-size: cover;
     padding-top: 56px !important;
 }
-.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {
-    /* padding-top:56px; */
-    /* position: absolute; */
-    z-index: 10000;
-}
 
-.esri-expand__content--expanded {
-    height: 80% !important;
-    max-height: 600px !important;
-}
-.esri-widget--panel-height-only{
-    height: 100%;
-    max-height: 600px !important;
-
-}
-.esri-popup--is-collapsed{
-    margin-bottom:50px;
-}
+/* #body-container{
+} */
 @media screen and (min-width: 600px) {
     #app-div {
         background: url(./girlOnMountain.jpg);
@@ -37,23 +22,3 @@
     }
     
 }
-#search-div-container{
-    z-index: 1000;
-    margin:auto;
-    right: 0;
-    left: 0;
-    top: 20px;
-    text-align: center;
-    width: 80%;
-    /* width: calc(80% - 20px);; */
-}
-#search-div{
-    position: relative;
-    margin: auto;
-    border: 2px solid #03385c
-}
-.esri-popup--is-collapsed{
-    margin-bottom:0px;
-}
-/* #body-container{
-} */

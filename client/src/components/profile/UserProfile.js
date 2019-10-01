@@ -47,7 +47,7 @@ class UserProfile extends Component {
                     <div className="card row w-100 m-0 p-2" id="profile-card">
                         <div className="h-100 w-100 text-center" >
                             <div className="h-100 w-50" id='card-img-container'>
-                                <img className="card-img-top float-left" src={profilePicture} alt="Proflie" />
+                                <img className="card-img-top user-profile-picture float-left" src={profilePicture} alt="Proflie" />
                             </div>
                         </div>
                         <div className="col-6 pr-2 float-right text-white text-right" id='nameAndEdit'>

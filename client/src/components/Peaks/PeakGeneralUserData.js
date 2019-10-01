@@ -1,4 +1,4 @@
-import { loadModules } from 'esri-loader';
+// import { loadModules } from 'esri-loader';
 
 export async function peakFilter(layer, filterType, layerArray) {
 console.log(layer)

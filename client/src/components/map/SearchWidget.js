@@ -46,5 +46,4 @@ export async function searchWidget(view, layer) {
             });
         });
 
-    return searchWidget;
 }

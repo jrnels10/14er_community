@@ -50,6 +50,8 @@ router.route('/oauth/facebook')
 
 router.route('/secret')
     .get(passportJWT, UserController.secret);
+router.route('/getUsersById')
+    .post(UserController.getUsersById);
 
 router.route('/update/:email')
     .put(upload.single('profilePicture'), UserController.updateUser);

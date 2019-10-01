@@ -1,22 +1,35 @@
-import React, { Component } from 'react';
-import { Consumer } from './../../Context';
+// import React, { Component } from 'react';
+// import { loadModules } from 'esri-loader';
 
-export default function PopupTemplate(props) {
+// export function popupTemplate(view) {
+//     return loadModules(["esri/widgets/Popup/PopupViewModel"])
+//         .then(async ([PopupVM]) => {
+//             export default class popup extends Component {
+//                 constructor(props, ...rest) {
+//                     super(props, ...rest);
+//                     this.state = {
+//                         vm: new PopupViewModel(),
+//                         maxZoomed: false,
+//                         minZoomed: false
+//                     };
+//                 }
 
-        var measureThisAction = {
-            title: "Measure Length",
-            id: "measure-this",
-            image:
-                "https://developers.arcgis.com/javascript/latest/sample-code/popup-actions/live/Measure_Distance16.png"
-        };
+//                 onViewLoaded = (view) => {
+//                     this.state.vm.view = view;
+//                     watchUtils.init(view, "popupTemp", this.onPopupClick);
+//                   };
 
-        var template = {
-            // autocasts as new PopupTemplate()
-            title: "Fourteener",
-            content: "Have you summitted {name}?",
-            actions: [measureThisAction]
-        };
-    
+//                 render() {
 
-   
-}
+//                     return (
+//                         <div></div>
+//                     );
+//                 }
+//             }
+
+
+
+//             popup.propTypes = {};
+
+//         })
+// }

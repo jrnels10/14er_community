@@ -6,8 +6,8 @@ const FacebookTokenStrategy = require('passport-facebook-token');
 const { ExtractJwt } = require('passport-jwt');
 const User = require('./models/user');
 
-// const { JWT_secret, google, facebook } = require('./config/keys');
-const { JWT_secret, google, facebook } = require('./prodKeys');
+const { JWT_secret, google, facebook } = require('./config/keys');
+// const { JWT_secret, google, facebook } = require('./prodKeys');
 
 // JSON WEB TOKENS STRATEGY
 passport.use(new JwtStrategy({
@@ -37,16 +37,9 @@ passport.use('googleToken', new GooglePlusTokenStrategy({
     clientSecret: google.clientSecret
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        // console.log("accessToken", accessToken);
-        // console.log("refreshToken", refreshToken);
-        console.log("profile", profile);
-        debugger
-        // Check whether this current user exist in our db
-
         const existingUser = await User.findOne({ 'google.id': profile.id })
         console.log('existingUser', existingUser)
         if (existingUser) {
-            console.log('user already exists')
             return done(null, existingUser);
         }
 
@@ -62,8 +55,6 @@ passport.use('googleToken', new GooglePlusTokenStrategy({
                 profilePicture: profile.photos[0].value
             }
         });
-
-        console.log('new user', newUser)
         await newUser.save();
         done(null, newUser);
     }
@@ -78,14 +69,10 @@ passport.use('facebookToken', new FacebookTokenStrategy({
     clientSecret: facebook.AppSecret
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        console.log('profile', profile)
         const existingUser = await User.findOne({ 'facebook.id': profile.id })
         if (existingUser) {
             return done(null, existingUser);
         }
-
-        // If new account
-        console.log('new user')
         const newUser = new User({
             method: 'facebook',
             facebook: {
@@ -111,9 +98,6 @@ passport.use(new LocalStrategy({
     try {
         // Find the user with the email
         const user = await User.findOne({ 'local.email': email });
-        console.log("test passport-setup", user)
-        console.log("test passport-setup", password)
-
         // If not, handle it
         if (!user) {
             return done(null, user);
@@ -121,7 +105,6 @@ passport.use(new LocalStrategy({
 
         // If found, check if password is correct
         const isMatch = await user.isValidPassword(password)
-        console.log("passport is match", isMatch)
 
         // if not, handle it
         if (!isMatch) {

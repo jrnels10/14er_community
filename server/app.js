@@ -1,8 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-// const keys = require('./config/keys');
-const keys = require('./prodKeys');
+const keys = require('./config/keys');
+// const keys = require('./prodKeys');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');

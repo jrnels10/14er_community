@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import { Consumer } from './../../Context';
 import UserProfile from './../profile/UserProfile';
 import Map from './../map/Map';
-import Peaks from './../Peaks/Peaks'
+import User from './../User/User';
 import secretResponse from './../HOC/Secret';
 
-
-import axios from 'axios';
-
 import './dashboard.css'
-// import { Consumer } from './../Context';
 
 
 export default class Dashboard extends Component {
@@ -39,10 +34,10 @@ export default class Dashboard extends Component {
                 {value => {
                     // const { dispatch } = value;
                     return <div className="dashboard container-fluid">
-                        <div className='col-lg-2 col-md-6 dashboard-mobile-user h-100 m-0 p-0 float-left dashboard-profile'>
+                        <div className='col-xl-2 col-lg-8 dashboard-mobile-user h-100 m-0 p-0 float-left dashboard-profile'>
                             <UserProfile reload={this.reload} />
                         </div>
-                        <div className="col-lg-10 col-md-12 dashboard-mobile-map float-left h-100 p-0">
+                        <div className="col-xl-10 col-lg-12 dashboard-mobile-map float-left h-100 p-0">
                             <div className='row w-100 m-0 dashboard-map'>
                                 <Map data={value} />
                                 {/* <div className='p-0 pb-3 m-0 col-2 float-left '>
@@ -53,9 +48,11 @@ export default class Dashboard extends Component {
                             </div>
                             <div className='row w-100 m-0 dashboard-users'>
                                 <div className='p-0 m-0 col-12 float-left '>
-
-                                    {/* <Peaks data={value} /> */}
-
+                                    {value.peaks.currentPeakSelected.length > 0 ? value.peaks.currentPeakSelected.map((selectedPeak, idx) => {
+                                        return value.peaksLayers.source.items.map(item=>{
+                                           return item.attributes.name === selectedPeak.graphic.attributes.name ? <User key={idx} user={item} />:null
+                                        })
+                                    }):null}
                                 </div>
                             </div>
                         </div>

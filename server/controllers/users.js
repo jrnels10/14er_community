@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken');
 const User = require('./../models/user');
-// const { JWT_secret } = require('./../config/keys');
-const { JWT_secret } = require('./../prodKeys');
+const { JWT_secret } = require('./../config/keys');
+// const { JWT_secret } = require('./../prodKeys');
 
 const uuidv1 = require('uuid/v1');
 
@@ -94,12 +94,12 @@ module.exports = {
         //     console.log("findOne", item)
         //     res.send(item)
         // });
-       return User.find().then(user => {
+        return User.find().then(user => {
             console.log(user)
             var userMap = [];
 
-            user.forEach(function (user,idx) {
-                userMap.push({userId:user._id, peaks:user.peaksCompleted});
+            user.forEach(function (user, idx) {
+                userMap.push({ userId: user._id, peaks: user.peaksCompleted });
             });
 
             res.send(userMap);
@@ -108,6 +108,26 @@ module.exports = {
         });
 
         // res.json({ peaks: req.peaks })
+    },
+    getUsersById: async (req, res, next) => {
+        console.log('body: ', req.body)
+        return User.find({ '_id': { $in: req.body } }).then((users) => {
+            var userMap = [];
+            users.forEach((user) => {
+                userMap.push({
+                    userId: user[user.method]._id,
+                    firstName: user[user.method].firstName,
+                    lastName: user[user.method].lastName,
+                    profilePicture: user[user.method].profilePicture,
+                    homeTown: user[user.method].homeTown,
+                    homeState: user[user.method].homeState,
+                    peaks: user[user.method].peaksCompleted
+                });
+
+            })
+            res.send(userMap);
+            return userMap
+        });
     },
     updateUser: async (req, res, next) => {
         var obj = JSON.parse(req.body.user);

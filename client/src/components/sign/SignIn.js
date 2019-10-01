@@ -25,8 +25,6 @@ export default class SignIn extends Component {
         // Step 4) Save the jwtToken into our localStorage
         try {
             const res = await axios.post(`${axiosServerUrl}/users/signin`, { email: this.state.email, password: this.state.password })
-            debugger
-            console.log(res)
             dispatch({
                 type: "SIGN_IN",
                 payload: {
@@ -56,7 +54,6 @@ export default class SignIn extends Component {
 
     async responseGoogle(value, res) {
         const { dispatch,axiosServerUrl } = value;
-
         try {
             const data = await axios.post(`${axiosServerUrl}/users/oauth/google`, { access_token: res.accessToken });
             // console.log(data);

@@ -44,20 +44,16 @@ const userPeaksFields = [{
 
 
 
-export async function PeakFeatureLayer( dispatch) {
+export async function PeakFeatureLayer(dispatch) {
     const peakLayerData = await getPeaksDetails();
-    return loadModules(['esri/views/MapView',
+    return loadModules([
         "esri/layers/GraphicsLayer",
         "esri/Graphic",
         "esri/geometry/Point",
-        "esri/widgets/Search",
-        "esri/symbols/SimpleMarkerSymbol",
-        "esri/renderers/SimpleRenderer",
-        'esri/WebMap',
-        "esri/widgets/BasemapGallery",
-        "esri/widgets/Expand",
-        "esri/layers/FeatureLayer"])
-        .then(([MapView, GraphicsLayer, Graphic, Point, Search, SimpleMarkerSymbol, SimpleRenderer, WebMap, BasemapGallery, Expand, FeatureLayer]) => {
+        "esri/layers/FeatureLayer",
+        "esri/popup/content/BarChartMediaInfo",
+        "esri/popup/content/support/ChartMediaInfoValue"])
+        .then(([GraphicsLayer, Graphic, Point, FeatureLayer,BarChartMediaInfo,ChartMediaInfoValue]) => {
             // then we load a web map from an id
 
             var features = Data.operationalLayers[3].featureCollection.layers[0].featureSet.features;
@@ -80,9 +76,10 @@ export async function PeakFeatureLayer( dispatch) {
                             avgDifficulty: peakDetail.attribute.difficulty.avgDifficulty,
                             userDifficulty: peakDetail.attribute.difficulty.userDifficulty
                         }
-                       return g.attributes = Object.assign(item.attributes, att)
+                        return g.attributes = Object.assign(item.attributes, att)
                     }
                     else {
+                        return null;
                     }
                 })
                 return gLayer.add(g);
@@ -123,6 +120,7 @@ export async function PeakFeatureLayer( dispatch) {
             };
 
             var sizeVisVar = {
+
                 type: "size",
                 field: "completedCount",
                 // normalizationField: "SQMI",
@@ -149,13 +147,69 @@ export async function PeakFeatureLayer( dispatch) {
                         width: 0.5
                     },
                     size: 6,
-                    color:'black'
+                    color: 'black'
                 },
                 // Set the color and size visual variables on the renderer
                 visualVariables: [sizeVisVar, colorVisVar]
             };
 
-            layer.renderer = renderer
+            layer.renderer = {
+                type: "simple", // autocasts as new SimpleRenderer()
+                symbol: {
+                    type: "point-3d", // autocasts as new PointSymbol3D()
+                    symbolLayers: [
+                        {
+                            type: "icon", // autocasts as new IconSymbol3DLayer()
+                            resource: {
+                                primitive: "circle"
+                            },
+                            material: {
+                                color: "black"
+                            },
+                            size: 4
+                        }
+                    ]
+                }
+            }
+            layer.labelingInfo = [{
+                // When using callouts on labels, "above-center" is the only allowed position
+                labelPlacement: "above-center",
+                labelExpressionInfo: {
+                    value: "{NAME}"
+                },
+                symbol: {
+                    type: "label-3d", // autocasts as new LabelSymbol3D()
+                    symbolLayers: [
+                        {
+                            type: "text", // autocasts as new TextSymbol3DLayer()
+                            material: {
+                                color: "#0d4160"
+                            },
+                            halo: {
+                                color: [255, 255, 255, 0.7],
+                                size: 2
+                            },
+                            size: 10
+                        }
+                    ],
+                    // Labels need a small vertical offset that will be used by the callout
+                    verticalOffset: {
+                        screenLength: 150,
+                        maxWorldLength: 2000,
+                        minWorldLength: 30
+                    },
+                    // The callout has to have a defined type (currently only line is possible)
+                    // The size, the color and the border color can be customized
+                    callout: {
+                        type: "line", // autocasts as new LineCallout3D()
+                        size: 0.5,
+                        color: [0, 0, 0],
+                        border: {
+                            color: [255, 255, 255, 0.7]
+                        }
+                    }
+                }
+            }]
 
             var measureThisAction = {
                 title: "Completed ?",
@@ -163,6 +217,11 @@ export async function PeakFeatureLayer( dispatch) {
                 image:
                     "https://developers.arcgis.com/javascript/latest/sample-code/popup-actions/live/Measure_Distance16.png"
             };
+
+
+              
+
+
             layer.popupTemplate = {
                 title: "{NAME}",
                 content: [{

@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { getAllPeaksCompleted } from './../../API/Peaks';
+// import axios from 'axios';
+// import { getAllPeaksCompleted } from './../../API/Peaks';
 import { secret } from './../../API/UsersAPI';
 
 export default async (dispatch, userState) => {
