@@ -47,7 +47,7 @@ export default class Dashboard extends Component {
                                 </div> */}
                             </div>
                             <div className='row w-100 m-0 dashboard-users'>
-                                <div className='p-0 m-0 col-12 float-left '>
+                                <div className='p-0 m-0 h-100 col-12 float-left '>
                                     {value.peaks.currentPeakSelected.length > 0 ? value.peaks.currentPeakSelected.map((selectedPeak, idx) => {
                                         return value.peaksLayers.source.items.map(item=>{
                                            return item.attributes.name === selectedPeak.graphic.attributes.name ? <User key={idx} user={item} />:null

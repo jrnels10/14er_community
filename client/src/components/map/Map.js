@@ -58,13 +58,6 @@ class MapClass extends Component {
                 });
                 webmap.add(layer)
 
-                // var view = new MapView({
-                //     map: webmap,
-                //     container: "viewDiv",
-                //     zoom: 7,
-                //     center: [-106.3, 39],
-                // });
-
                const view = new SceneView({
                     container: "viewDiv",
                     map: webmap,
@@ -157,11 +150,6 @@ class MapClass extends Component {
                     // console.log(this.state.currentPeak)
                     return <React.Fragment>
                         <div className='w-100 h-100 bg-light position-relative' id="viewDiv">
-                            {/* <input className="esri-component esri-widget--button esri-widget esri-interactive"
-                                onChange={this.switchViewType}
-                                id="switch-btn"
-                                value={this.state.viewType}
-                            /> */}
                             <div className="position-absolute m-auto" id="search-div-container">
                                 <div id="search-div"></div>
                             </div>

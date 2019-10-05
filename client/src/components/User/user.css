@@ -1,3 +1,32 @@
-.peak-users-image{
-    width:100px !important
+.peak-users-image {
+    width: 100px !important
+}
+
+.listHorizontal {
+    display: flex;
+    justify-content: space-around;
+    color: #b6d8cf;
+    font-size: 30px;
+    text-transform: uppercase;
+    list-style: none;
+}
+
+.user-image-container {
+    width: 100%;
+    height: 100%
+}
+
+.user-body-container{
+    width: 100%;
+    height: 100%;
+    overflow: auto
+}
+
+.user-body-container > .card-title {
+    font-size: .8em;
+    font-weight: bold
+}
+
+.user-body-container > .card-text {
+    font-size: .7em
 }
