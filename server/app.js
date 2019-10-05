@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+var history = require('connect-history-api-fallback');
 // const keys = require('./config/keys');
 const keys = require('./prodKeys');
 const bodyParser = require('body-parser');
@@ -14,7 +15,7 @@ mongoose.connect(keys.mongoDB.dbURI, { useNewUrlParser: true,useFindAndModify:fa
 });
 
 const app = express();
-
+app.use(history());
 app.use(cors());
 
 //middlewares
