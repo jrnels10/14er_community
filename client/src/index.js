@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 
 import * as serviceWorker from './serviceWorker';
-import App from './components/App/App';
+import App from './App';
 import Home from './components/home/Home';
 import SignUp from './components/sign/SignUp';
 import SignIn from './components/sign/SignIn';
