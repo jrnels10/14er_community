@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getUsersById } from '../../API/UsersAPI';
+import moment from 'moment';
 
 import './user.css';
 
@@ -15,10 +16,7 @@ export default class UserPeaks extends Component {
         const { userCompleted } = this.props.user.attributes;
         const users = userCompleted !== undefined ? await getUsersById(userCompleted) : null;
         console.log(users)
-        this.setState({ users: users.data })
-        // userCompleted.map(user => {
-        //     return this.findUsers(user.userId)
-        // }) 
+        return users === null ? null : this.setState({ users: users.data });
     }
 
     findUsers = (id) => {
@@ -26,23 +24,51 @@ export default class UserPeaks extends Component {
     }
 
     render() {
-        // const { userCompleted } = this.props.user.attributes
-        // debugger
+        ;
         const users = this.state.users
         console.log(this.state.users)
         return (
             <div className="w-100 h-100 listHorizontal">
                 {users.length > 0 ?
                     users.map((item, idx) => {
-                        return <div className="card h-100 container" style={{ width: '20rem', float: 'left' }} key={idx}>
-                            <div className="row w-100 m-auto">
-                                <div className="col-5 float-left user-image-container">
+                        return <div className="card h-100 mr-2 users-card" key={idx}>
+                            <div className="row w-100 m-auto h-100 pl-2 pr-2 users-card-growing-container">
+                                {item.profilePicture ? <div className="col-5 float-left user-image-container">
                                     <img className="card-img-top peak-users-image" src={`${item.profilePicture}`} alt="Card cap" style={{ width: '100px !important' }} />
-                                </div>
-                                <div className="col-7 float-left p-0">
-                                    <div className="card-body user-body-container p-0">
-                                        <h5 className="card-title ">{item.firstName}</h5>
-                                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div> : null}
+                                <div className="col-7 pl-1 float-left p-0">
+                                    <div className="card-body user-body-container">
+                                        <h5 className="card-title ">{item.firstName} {item.lastName}</h5>
+                                        <div className="card-text">
+                                            <table style={{ width: '100%' }}>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>14ers Completed</td>
+                                                        <td>{item.peaks.length}</td>
+                                                    </tr>
+                                                    {item.peaks.map((peak) => {
+                                                        return peak.peakName === this.props.peak ?
+                                                            [<tr key='1'>
+                                                                <td className="user-table-subject">Date Completed</td>
+                                                                <td>{moment(peak.dateCompleted).format('MM/DD/YYYY')}</td>
+                                                            </tr>, <tr key='2'>
+                                                                <td className="user-table-subject">Difficulty</td>
+                                                                <td className="user-table-subject">{peak.difficulty}</td>
+                                                            </tr>, <tr key='3'>
+                                                                <td className="user-table-subject">Duration</td>
+                                                                <td className="user-table-subject">{peak.duration}</td>
+                                                            </tr>, 
+                                                            // <tr key='4'>
+                                                            //     <td className="user-table-subject">Route</td>
+                                                            //     <td>{peak.routeTaken}</td>
+                                                            // </tr>
+                                                            ]
+                                                            : null;
+                                                    })
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
                                         {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
                                     </div>
                                 </div>

@@ -8,7 +8,8 @@
 
 #profile-card {
     padding: 5px;
-    background: #2e292a
+    background: #2e292a;
+    height: 200px
 }
 
 #profile-email {
@@ -44,7 +45,8 @@
 } */
 
 #user-profile-container {
-    background: rgb(117, 104, 98, 0.75)
+    background: rgb(117, 104, 98, 0.75);
+    
 }
 
 .edit-input{

@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken');
 const User = require('./../models/user');
-// const { JWT_secret } = require('./../config/keys');
-const { JWT_secret } = require('./../prodKeys');
+const { JWT_secret } = require('./../config/keys');
+// const { JWT_secret } = require('./../prodKeys');
 
 const uuidv1 = require('uuid/v1');
 
@@ -110,23 +110,28 @@ module.exports = {
         // res.json({ peaks: req.peaks })
     },
     getUsersById: async (req, res, next) => {
-        console.log('body: ', req.body)
         return User.find({ '_id': { $in: req.body } }).then((users) => {
             var userMap = [];
             users.forEach((user) => {
+
                 userMap.push({
-                    userId: user[user.method]._id,
+                    userId: user._id,
                     firstName: user[user.method].firstName,
                     lastName: user[user.method].lastName,
                     profilePicture: user[user.method].profilePicture,
                     homeTown: user[user.method].homeTown,
                     homeState: user[user.method].homeState,
-                    peaks: user[user.method].peaksCompleted
+                    peaks: user.peaksCompleted
                 });
 
             })
+            console.log(userMap)
             res.send(userMap);
             return userMap
+        }).catch(error =>{
+            res.send(404)
+            return error
+            
         });
     },
     updateUser: async (req, res, next) => {

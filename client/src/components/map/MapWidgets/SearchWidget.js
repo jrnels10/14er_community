@@ -2,21 +2,11 @@ import { loadModules } from 'esri-loader';
 
 export async function searchWidget(view, layer) {
 
-    return loadModules(['esri/views/MapView',
-        "esri/layers/GraphicsLayer",
-        "esri/Graphic",
-        "esri/geometry/Point",
-        "esri/widgets/Search",
-        "esri/symbols/SimpleMarkerSymbol",
-        "esri/renderers/SimpleRenderer",
-        'esri/WebMap',
-        "esri/widgets/BasemapGallery",
-        "esri/widgets/Expand",
-        "esri/layers/FeatureLayer"])
-        .then(async ([MapView, GraphicsLayer, Graphic, Point, Search, SimpleMarkerSymbol, SimpleRenderer, WebMap, BasemapGallery, Expand, FeatureLayer]) => {
+    return loadModules(["esri/widgets/Search","esri/widgets/Expand"])
+        .then(async ([Search,Expand]) => {
             var searchWidget = new Search({
                 view: view,
-                container: "search-div",
+                // container: "search-div",
                 allPlaceholder: "14er name",
                 includeDefaultSources: false,
                 sources: [{
@@ -28,6 +18,11 @@ export async function searchWidget(view, layer) {
                     name: "14ers",
                     placeholder: "select peak"
                 }]
+            });
+
+            var expandSearch = new Expand({
+                view: view,
+                content: searchWidget
             });
 
             searchWidget.on("select-result", async function (event) {
@@ -43,6 +38,10 @@ export async function searchWidget(view, layer) {
                     target: event.result.extent,
                     zoom: 12
                 }, opts);
+            });
+
+            view.ui.add(expandSearch, {
+                position: "top-right"
             });
         });
 

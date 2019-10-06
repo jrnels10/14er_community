@@ -39,3 +39,10 @@
 .esri-popup--is-collapsed{
     margin-bottom:0px;
 }
+
+.toggle-render{
+    position: absolute;
+    z-index: 100;
+    right: 15px;
+    top: 55px;
+}

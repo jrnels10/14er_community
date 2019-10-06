@@ -14,10 +14,15 @@ module.exports = {
             return userMap
         });
     },
+    peaksTest: async (req,res,next) =>{
+        console.log("test called")
+        res.send({test:'called'})
+    },
     peaksDetails: async (req, res, next) => {
+        console.log("peaksDetails called")
         return Peak.find().then(peak => {
             console.log(peak)
-            res.send(peak);
+            res.send({peakDetails:peak});
         })
     },
     peaksUpdate: async (req, res, next) => {

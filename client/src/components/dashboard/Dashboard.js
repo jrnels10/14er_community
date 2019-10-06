@@ -33,6 +33,7 @@ export default class Dashboard extends Component {
             <Consumer>
                 {value => {
                     // const { dispatch } = value;
+                    const selectedPeak = value.peaks.currentPeakSelected.length > 0 ? value.peaks.currentPeakSelected[0].graphic.attributes.name : false;
                     return <div className="dashboard container-fluid">
                         <div className='col-xl-2 col-lg-8 dashboard-mobile-user h-100 m-0 p-0 float-left dashboard-profile'>
                             <UserProfile reload={this.reload} />
@@ -47,13 +48,12 @@ export default class Dashboard extends Component {
                                 </div> */}
                             </div>
                             <div className='row w-100 m-0 dashboard-users'>
-                                <div className='p-0 m-0 h-100 col-12 float-left '>
-                                    {value.peaks.currentPeakSelected.length > 0 ? value.peaks.currentPeakSelected.map((selectedPeak, idx) => {
-                                        return value.peaksLayers.source.items.map(item=>{
-                                           return item.attributes.name === selectedPeak.graphic.attributes.name ? <User key={idx} user={item} />:null
-                                        })
-                                    }):null}
-                                </div>
+
+                                {selectedPeak ? value.peaksLayers.source.items.map((item, idx) => {
+                                    return item.attributes.name === selectedPeak ? <User key={idx} user={item} peak={selectedPeak} /> : null
+                                })
+                                    : null}
+
                             </div>
                         </div>
                     </div>

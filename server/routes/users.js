@@ -38,7 +38,6 @@ const upload = multer({
 
 router.route("/signup")
     .post(validateBody(schema.authSchema), UserController.signUp);
-console.log(passportSignIn)
 router.route('/signin')
     .post(validateBody(schema.authSchema), passportSignIn, UserController.signIn);
 
