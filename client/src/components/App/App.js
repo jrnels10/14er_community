@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from '../Navbar/Navbar';
 
-import './../Style/App.css';
+import './app.css';
 
 export default (props) => {
     return (

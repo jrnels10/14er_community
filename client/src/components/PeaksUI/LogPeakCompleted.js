@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import { updatePeaksCompleted, updatePeaksAttributes } from '../../API/PeaksAPI';
+import { PeakFeatureLayer } from './../map/FeatureLayers/mapLayers';
+import { findLayerById } from './../../Library/Tools';
 // import {PeakFeatureLayer} from './Peaks';
 
-import './peaks.css';
+import './logPeaksCompleted.css';
 
 export default class PeakDetails extends Component {
 
@@ -16,7 +18,9 @@ export default class PeakDetails extends Component {
 
     onChange = date => this.setState({ date });
 
-    checkInComplete = () => {
+    checkInComplete = async () => {
+        this.props.toggle()
+        const { view, map, dispatch } = this.props.data;
         let fouteenerListCompleted = {
             user: this.props.data._id, peaks: {
                 peakName: this.props.peak.attributes.name,
@@ -26,9 +30,12 @@ export default class PeakDetails extends Component {
                 duration: this.state.duration
             }
         };
-        updatePeaksCompleted(fouteenerListCompleted);
-        updatePeaksAttributes(fouteenerListCompleted);
-        this.props.data.dispatch({
+        await updatePeaksCompleted(fouteenerListCompleted);
+        await updatePeaksAttributes(fouteenerListCompleted);
+        const newLayer = await PeakFeatureLayer(false);
+        map.add(newLayer)
+        const oldLayer = await findLayerById(view, 'peakLayer');
+        dispatch({
             type: "CURRENT_PEAK_COMPLETED",
             payload: {
                 peaksCompleted: {
@@ -40,7 +47,9 @@ export default class PeakDetails extends Component {
                 }
             }
         });
-        this.props.toggle()
+        setTimeout(() => {
+            map.layers.remove(oldLayer)
+        }, 500)
     };
 
     onUpdate = (e) => {
@@ -49,6 +58,7 @@ export default class PeakDetails extends Component {
 
     render() {
         const peak = this.props.peak;
+
         return <div className={`peak-detail-${this.props.display ? 'show' : 'hide'}`}>
             <div className={`peak-detail-${this.props.display ? 'show' : 'hide'}-container`} id='peak-details-container'>
                 <label>{peak.attributes.name}</label>

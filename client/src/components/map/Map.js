@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import LogPeakCompleted from '../Peaks/LogPeakCompleted';
+import LogPeakCompleted from '../PeaksUI/LogPeakCompleted';
 import { buildMap } from './mapLoader';
+import { findLayerById } from './../../Library/Tools';
 import { PeakFeatureLayer } from './FeatureLayers/mapLayers';
 import { Consumer } from './../../Context';
 import './map.css'
@@ -16,22 +17,14 @@ export default class MapClass extends Component {
             viewType: '3D',
             completedPeaks: [],
             showLogin: false,
-            peakListDetails: ''
+            peakListDetails: '',
+            renderType: false
         };
     };
 
     componentWillMount = async () => {
-        // const peaksRes = await getAllPeaksCompleted();
-        let layer = await PeakFeatureLayer(true)
+        let layer = await PeakFeatureLayer(this.state.renderType)
         await buildMap(this, layer);
-
-        // let peakList = [];
-        // peaksRes.data.map(peak => {
-        //     if (peak.peaks.length > 0) {
-        //         peakList.push(peak);
-        //     }
-        //     return peakList;
-        // });
     };
 
     toggleModal = () => {
@@ -42,16 +35,22 @@ export default class MapClass extends Component {
         });
     };
 
+    toggleRender = async (value, type) => {
+        const { map, view } = value;
+        this.setState({ renderType: type });
+        let newLayer = await PeakFeatureLayer(type)
+        map.add(newLayer)
+        const oldLayer = await findLayerById(view, 'peakLayer');
+        map.layers.remove(oldLayer)
+    }
+
     render() {
         return (
             <Consumer>
                 {value => {
-                    // console.log(this.state.currentPeak)
                     return <React.Fragment>
                         <div className='w-100 h-100 bg-light position-relative' id="viewDiv">
-                            {/* <div className="position-absolute m-auto" id="search-div-container">
-                                <div id="search-div"></div>
-                            </div> */}
+                            <div className="toggle-render-view" onClick={this.toggleRender.bind(this, value, !this.state.renderType)}>{this.state.renderType ? <i className="fas fa-toggle-on fa-lg toggle-widget"></i> : <i className="toggle-widget fas fa-lg fa-toggle-off"></i>}</div>
                             {this.state.currentPeak ?
                                 <LogPeakCompleted display={this.state.showLogin} toggle={this.toggleModal} peak={this.state.currentPeak} data={value} />
                                 : null}

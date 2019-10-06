@@ -6,6 +6,7 @@
     opacity: .25;
     filter: grayscale(100%);
 }
+
 .peak-users-image:hover {
     opacity: .95;
     filter: grayscale(0%);
@@ -50,14 +51,24 @@
     overflow: auto;
     height: 75px;
 }
-.user-table-subject{
+
+.user-table-subject {
     width: 90px;
 }
 
-.users-card{
-    width: 205px !important;
-    height: auto;
-    display:inline-block;
+.users-card {
+    width: 230px !important;
+    height: 135px !important;
+    display: inline-block;
     background-color: #0d4160;
     position: relative;
+}
+
+.card-text::-webkit-scrollbar {
+    width: 2px !important;
+}
+
+.card-text::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: #FDA401;
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SignIn from './../components/sign/SignIn';
-import {Consumer} from './../Context';
+import SignIn from '../sign/SignIn';
+import {Consumer} from '../../Context';
 import { Link } from 'react-router-dom';
 
 

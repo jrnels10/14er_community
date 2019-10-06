@@ -7,16 +7,16 @@ import { PeakLabelDefault } from './layerLabeling';
 import { PeakPopup } from './layerPopup';
 
 export async function PeakFeatureLayer(renderType) {
+    // debugger
     const peakLayerData = await getPeaksDetails();
     return loadModules([
         "esri/layers/GraphicsLayer",
         "esri/Graphic",
         "esri/geometry/Point",
         "esri/layers/FeatureLayer"])
-        .then(([GraphicsLayer, Graphic, Point, FeatureLayer]) => {
+        .then(async ([GraphicsLayer, Graphic, Point, FeatureLayer]) => {
             var features = Data.operationalLayers[3].featureCollection.layers[0].featureSet.features;
             var fields = Data.operationalLayers[3].featureCollection.layers[0].layerDefinition.fields;
-            // let layerArray = [];
             var gLayer = new GraphicsLayer();
             features.map(item => {
                 var point = new Point(item.geometry);
@@ -53,7 +53,7 @@ export async function PeakFeatureLayer(renderType) {
                 geometryType: "point"
             });
 
-            layer.renderer = renderType ? renderer3DBarChart : rendererDefault
+            layer.renderer = renderType ? await renderer3DBarChart() : rendererDefault
             layer.labelingInfo = [PeakLabelDefault]
             layer.popupTemplate = PeakPopup
             return layer

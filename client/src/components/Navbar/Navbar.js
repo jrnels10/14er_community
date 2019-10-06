@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Consumer } from './../Context';
+import { Consumer } from '../../Context';
 import axios from 'axios';
 
-import './../Style/NavStyle.css';
+import './navbar.css';
 
 export default class Navbar extends Component {
     constructor(props, ...rest) {

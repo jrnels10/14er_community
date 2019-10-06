@@ -21,16 +21,16 @@ export async function buildMap(that, layer) {
                     position: [-106.3, 35, 195184],
                     tilt: 55
                 },
-                popup: {
-                    dockEnabled: true,
-                    dockOptions: {
-                        // Disables the dock button from the popup
-                        buttonEnabled: false,
-                        // Ignore the default sizes that trigger responsive docking
-                        breakpoint: false,
-                        position: 'bottom-right'
-                    }
-                }
+                // popup: {
+                //     dockEnabled: true,
+                //     dockOptions: {
+                //         // Disables the dock button from the popup
+                //         buttonEnabled: false,
+                //         // Ignore the default sizes that trigger responsive docking
+                //         breakpoint: false,
+                //         position: 'bottom-right'
+                //     }
+                // }
             });
 
             //adds widgets to map
