@@ -3,7 +3,7 @@
 }
 
 #app-div {
-    background: url(./../../Images/girlOnMountain_mobile_left.jpg);
+    background: url(./Images/girlOnMountain_mobile_left.jpg);
     background-repeat: no-repeat;
     background-position: center bottom;
     background-size: cover;
@@ -14,7 +14,7 @@
 } */
 @media screen and (min-width: 600px) {
     #app-div {
-        background: url(./../../Images/girlOnMountain.jpg);
+        background: url(./Images/girlOnMountain.jpg);
         background-repeat: no-repeat;
         background-position: center center;
         background-size: cover;
