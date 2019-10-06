@@ -8,7 +8,7 @@ import App from './App';
 import Home from './components/home/Home';
 import SignUp from './components/sign/SignUp';
 import SignIn from './components/sign/SignIn';
-import Profile from './components/profile/UserProfile';
+import Profile from './components/UserProfile/UserProfile';
 import MapComponent from './components/map/Map';
 import Dashboard from './components/dashboard/Dashboard';
 import { Provider } from './Context';
