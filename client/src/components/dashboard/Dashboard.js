@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Consumer } from './../../Context';
-import UserProfile from './../profile/UserProfile';
+import UserProfile from './../UserProfile/UserProfile';
 import Map from './../map/Map';
 import User from './../User/User';
 import secretResponse from './../HOC/Secret';
