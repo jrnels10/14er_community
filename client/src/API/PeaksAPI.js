@@ -12,7 +12,7 @@ export function getAllPeaksCompleted() {
 
 export async function getPeaksDetails() {
     // return await axios.get(`http://localhost:5000/peaks/peaksDetails`);
-    return await axios.get(`https://fourteener-community.herokuapp.com/peaks/peaksDetails`);
+    return await axios.post(`https://fourteener-community.herokuapp.com/peaks/peaksDetails`);
 }
 
 export function updatePeaksAttributes(updatedPeaks) {

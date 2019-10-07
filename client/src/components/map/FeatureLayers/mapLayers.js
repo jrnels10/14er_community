@@ -9,6 +9,7 @@ import { PeakPopup } from './layerPopup';
 export async function PeakFeatureLayer(renderType) {
     // debugger
     const peakLayerData = await getPeaksDetails();
+    // debugger
     return loadModules([
         "esri/layers/GraphicsLayer",
         "esri/Graphic",
@@ -24,7 +25,7 @@ export async function PeakFeatureLayer(renderType) {
                     geometry: point,
                     attributes: item.attributes
                 });
-                peakLayerData.data.map(peakDetail => {
+                peakLayerData.data.peakDetails.map(peakDetail => {
                     if (peakDetail.name === item.attributes.name) {
                         let att = {
                             completedCount: peakDetail.attribute.completed.completedCount,
