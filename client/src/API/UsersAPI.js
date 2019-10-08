@@ -7,5 +7,5 @@ export async function secret() {
 export async function getUsersById(arr) {
     const userArray = arr.map(element => ({_id: element.userId}))
   console.log(userArray)
-    return await axios.post(`http://localhost:5000/users/getUsersById`, userArray);
+    return await axios.post(`https://fourteener-community.herokuapp.com/users/getUsersById`, userArray);
 }
