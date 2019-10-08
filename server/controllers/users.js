@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken');
 const User = require('./../models/user');
-// const { JWT_secret } = require('./../config/keys');
-const { JWT_secret } = require('./../prodKeys');
+const { JWT_secret } = process.env.NODE_ENV === "production" ? require('./../prodKeys') : require('./../config/keys');
+// const { JWT_secret } = require('./../prodKeys');
 
 const uuidv1 = require('uuid/v1');
 
@@ -128,10 +128,10 @@ module.exports = {
             console.log(userMap)
             res.send(userMap);
             return userMap
-        }).catch(error =>{
+        }).catch(error => {
             res.send(404)
             return error
-            
+
         });
     },
     updateUser: async (req, res, next) => {
