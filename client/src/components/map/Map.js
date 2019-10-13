@@ -23,8 +23,20 @@ export default class MapClass extends Component {
     };
 
     componentWillMount = async () => {
+        this.props.data.dispatch({
+            type: "LOADER",
+            payload: {
+                loader: true
+            }
+        })
         let layer = await PeakFeatureLayer(this.state.renderType)
         await buildMap(this, layer);
+        await this.props.data.dispatch({
+            type: "LOADER",
+            payload: {
+                loader: false
+            }
+        })
     };
 
     toggleModal = () => {

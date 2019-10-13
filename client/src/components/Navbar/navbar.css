@@ -24,6 +24,11 @@
     padding-left: 20px;
 }
 
+/* .navbar-brand{
+    height: 52px;
+    width: 52px;
+} */
+
 .navbar-custom-close {
     height: 0px;
     /* opacity: 0; */
@@ -41,6 +46,16 @@
     top: 10px;
     position: absolute;
 }
+.nav-title-blueish{
+    color: white;
+    font-weight: bold;
+    margin-left: 65px
+}
+.nav-title-no-color{
+    color: #0d4160;
+    font-weight: bold;
+    margin-left: 65px
+}
 
 .navbar-toggler-open {
     display: none;
@@ -55,8 +70,13 @@
 
 .navbar-brand {
     position: absolute;
-    top: 10px;
-    left: 20px
+    /* top: 1px; */
+    
+}
+
+.navbar-brand > img {
+    height: 100px
+
 }
 
 .ul-close {

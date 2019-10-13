@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import SignIn from '../sign/SignIn';
-import {Consumer} from '../../Context';
+import { Consumer } from '../../Context';
 import { Link } from 'react-router-dom';
+
 
 
 import './home.css'
@@ -26,6 +27,7 @@ export default class Home extends Component {
         // }, 3000)
     }
 
+
     render() {
         const open = this.state.open ? "open" : "close";
         return (
@@ -34,9 +36,9 @@ export default class Home extends Component {
                     return <div className="w-100 h-100 row m-0" >
                         <div className="col-12">
                             <div className="row h-25" id="home-logo">
-                                {/* Welcome to our homepage */}
+                            
 
-                        </div>
+                            </div>
                             {this.state.open ?
                                 <React.Fragment>
                                     {!value.isAuthenticated ?

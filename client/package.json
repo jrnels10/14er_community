@@ -6,8 +6,10 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "esri-loader": "^2.10.0",
+    "lottie-react-web": "^2.1.4",
     "moment": "^2.24.0",
     "react": "^16.8.6",
+    "react-add-to-homescreen": "^1.1.0",
     "react-datetime-picker": "^2.7.1",
     "react-dom": "^16.8.6",
     "react-facebook-login": "^4.1.1",

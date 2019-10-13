@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Consumer } from '../../Context';
 import axios from 'axios';
+import Loader from './../loader/Loader';
+import Logo from './../../Images/14erLogo.png'
 
 import './navbar.css';
 
@@ -56,11 +58,12 @@ export default class Navbar extends Component {
         return (
             <Consumer>
                 {value => {
-                    const { dispatch } = value;
+                    const { dispatch, loader } = value;
                     const home = value.isAuthenticated ? "blueish" : "no-color";
                     const show = this.state.show ? 'open' : 'close';
                     return <nav className={`navbar navbar-dark ${home}`} style={{ zIndex: '5000' }}>
-                        <Link className="navbar-brand" onClick={this.redirect.bind(this)} to="/">14er Community</Link>
+                        <Loader nav={true} loop={loader} auto={loader} height="100%" /> <h6 className={`nav-title-${home}`}>Fourteener Community</h6>
+                        <Link className="navbar-brand" onClick={this.redirect.bind(this)} to="/"></Link>
                         <button className={`navbar-toggler`} type="button" onClick={() => { this.setState({ show: !this.state.show }) }} aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>

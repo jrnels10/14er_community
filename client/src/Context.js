@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Loader from './components/loader/Loader';
 
 const Context = React.createContext();
 let wellList = [];
@@ -90,7 +91,7 @@ const reducer = (state, action) => {
             }
         case 'CURRENT_PEAK_SELECTED':
             let peaksCurrentList = state.peaks;
-            peaksCurrentList.currentPeakSelected=action.payload.currentPeakSelected;
+            peaksCurrentList.currentPeakSelected = action.payload.currentPeakSelected;
 
             return {
                 ...state,
@@ -103,6 +104,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 allPeaksList
+            }
+        case 'LOADER':
+            return {
+                ...state,
+                loader: action.payload.loader,
             }
         default:
             return state;
@@ -128,6 +134,7 @@ export class Provider extends Component {
         homeTown: '',
         homeState: '',
         method: '',
+        loader: true,
         isAuthenticated: false,
         token: '',
         peaksLayers: '',
@@ -152,7 +159,8 @@ export class Provider extends Component {
         this.environment();
         const jwtToken = localStorage.getItem('JWT_TOKEN');
         axios.defaults.headers.common['Authorization'] = jwtToken;
-        return jwtToken ? this.setState({ token: jwtToken, isAuthenticated: true }) : null
+        // debugger
+        return jwtToken ? this.setState({ token: jwtToken, isAuthenticated: true, loader: false }) : this.setState({ loader: false })
     }
     environment = () => {
         return process.env.NODE_ENV === "development" ? null : this.setState({

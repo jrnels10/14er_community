@@ -13,6 +13,7 @@ import MapComponent from './components/map/Map';
 import Dashboard from './components/dashboard/Dashboard';
 import { Provider } from './Context';
 import authGuard from './components/HOC/authGuard';
+import Loader from './components/loader/Loader';
 
 
 ReactDOM.render(
@@ -25,6 +26,7 @@ ReactDOM.render(
                 <Route exact path="/signin" component={SignIn} />
                 <Route exact path="/map" component={MapComponent} />
                 <Route exact path="/dashboard" component={authGuard(Dashboard)} />
+                <Route exact path="/loader" component={Loader} />
             </App>
         </BrowserRouter>
     </Provider>
