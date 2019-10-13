@@ -4,6 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 
 import * as serviceWorker from './serviceWorker';
+import registerServiceWorker from './registerServiceWorker';
 import App from './App';
 import Home from './components/home/Home';
 import SignUp from './components/sign/SignUp';
@@ -32,4 +33,6 @@ ReactDOM.render(
     </Provider>
     , document.getElementById('root'));
 
-serviceWorker.unregister();
+// serviceWorker.register();
+
+registerServiceWorker();
