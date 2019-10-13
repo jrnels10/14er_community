@@ -44,21 +44,20 @@ hr {
     height: 38px;
 }
 
-.google-login {
-    /* width: 106.8px !important; */
+/* .google-login {
     float: right;
     height: 38px !important;
     position: relative;
     font-size: .8rem !important
-}
+} */
 
-.google-login div {
+/* .google-login div {
     padding: 5px !important;
     margin-bottom: 4px !important;
     margin-left: 3px;
     float: right;
     font-size: .8rem !important;
-}
+} */
 
 .alert-primary {
     padding: .3rem
@@ -109,13 +108,13 @@ hr {
         width: 90%;
     }
 
-    .google-login {
+    /* .google-login {
         width: 90%;
         float: right;
         height: 40px !important;
         position: relative;
         font-size: .8rem !important
-    }
+    } */
 
 }
 
@@ -145,18 +144,16 @@ hr {
     }
 
     .google-login {
-        width: 90%;
+        width: 100%;
         float: right;
         height: 40px !important;
         text-align: center;
-        /* margin: auto; */
         padding-left: 15px !important;
         position: relative;
         font-size: 1rem !important
     }
     
     .google-login div {
-        /* width: 106.8px !important; */
         padding: 5px !important;
         margin-bottom: 4px !important;
         margin-left: 3px;

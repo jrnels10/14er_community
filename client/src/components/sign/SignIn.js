@@ -65,6 +65,7 @@ export default class SignIn extends Component {
                     errorMessage: ''
                 }
             });
+            debugger
             localStorage.setItem('JWT_TOKEN', data.data.token);
             axios.defaults.headers.common['Authorization'] = data.data.token;
             this.props.history.push('/dashboard');
@@ -72,9 +73,11 @@ export default class SignIn extends Component {
             console.log(err)
         }
     }
+
     async responseFacebook(value, res) {
         const { dispatch,axiosServerUrl } = value;
         // console.log(dispatch, res)
+        debugger
         try {
             const data = await axios.post(`${axiosServerUrl}/users/oauth/facebook`, { access_token: res.accessToken });
             // console.log(data);
@@ -148,14 +151,14 @@ export default class SignIn extends Component {
                             </form>
                             {this.state.errorMessage ? <div className='alert alert-danger'>{value.errorMessage}</div> : null}
                             <div className='text-white pl-2 mt-2'><small>
-                                Or sign in using Google or Facebook
+                                Or sign in using Google
                             </small>
                             </div>
                             <div className='row w-100 m-0 pl-2 p-0 mt-3'>
-                                <div className="w-50 m-auto text-center">
+                                {/* <div className="w-50 m-auto text-center">
 
                                     <FacebookLogin
-                                        appId={`${value.facebookappId}`}
+                                        appId='1431908256951062'
                                         autoLoad={false}
                                         textButton=" Facebook"
                                         fields="name,email,picture"
@@ -163,8 +166,8 @@ export default class SignIn extends Component {
                                         cssClass="btn facebook-login"
                                         // icon="fa-facebook"
                                     />
-                                </div>
-                                <div className="w-50 m-auto text-center">
+                                </div> */}
+                                <div className="w-50 text-center">
                                     <GoogleLogin
                                         clientId={`${value.googleClientId}`}
                                         buttonText="Google"

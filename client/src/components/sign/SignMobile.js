@@ -65,6 +65,7 @@ export default class SignIn extends Component {
         try {
             const data = await axios.post('http://localhost:5000/users/oauth/google', { access_token: res.accessToken });
             console.log(data);
+            debugger
             dispatch({
                 type: "SIGN_UP",
                 payload: {
@@ -85,6 +86,7 @@ export default class SignIn extends Component {
         try {
             const data = await axios.post('http://localhost:5000/users/oauth/facebook', { access_token: res.accessToken });
             // console.log(data);
+            debugger
             dispatch({
                 type: "SIGN_UP",
                 payload: {
