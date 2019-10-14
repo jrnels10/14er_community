@@ -2,7 +2,9 @@
     height: 100%
 }
 
-
+body{
+    background-color: #0d4160;
+}
 
 #app-div {
     background: url(./Images/girlOnMountain_mobile_left.jpg);
