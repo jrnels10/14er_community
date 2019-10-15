@@ -7,53 +7,88 @@
 }
 
 #profile-card {
-    padding: 5px;
-    background: #2e292a;
-    height: 200px
+    border-radius: 0px 0px 30px 30px;
+    background: #0d4160;
+    border: 0px;
+}
+
+.full-profile-card {
+    height: 45%;
+    transition: height 500ms
+}
+
+.half-profile-card {
+    height: 10%;
+    transition: height 500ms;
+}
+#user-details-container{
+    bottom: 0px;
+    /* position: absolute; */
+}
+.user-details-container-full {
+    height: 55%;
+    overflow: auto;
+    transition: height 500ms;
+}
+
+.user-details-container-half {
+    overflow: auto;
+    height: 85%;
+    transition: height 500ms;
+
+}
+.details-half{
+    padding-top: 100px;
+    transition: padding-top 500ms;
+}
+.details-full{
+    padding-top: 10px;
+    transition: padding-top 500ms;
+}
+
+#user-details > h4, #user-details > hr{
+    color: white;
+    text-align: center;
+    margin: auto;
+    margin-top:2px;
+    margin-bottom: 5px;
 }
 
 #profile-email {
     font-size: 1vw
 }
 
+.hide-profile-image {
+    position: absolute;
+    bottom: 5px;
+    right: 25px;
+    color: white;
+    font-weight: bold;
+}
+
 .user-profile-picture {
-    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0px 0px 30px 30px;
 }
 
-.card-title {
-    /* font-size: 1.2vw */
+.image-shadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0px -30px 26px -10px rgba(0, 0, 0, 0.6), 0px 12px 27px -10px rgba(0, 0, 0, 0.6);
+    border-radius: 0 0 30px 30px;
+    bottom: 0px;
 }
-
-/* .card-hometown {
-    font-size: .9vw;
-    margin-bottom: .8vw
-} */
-
-#card-img-container {
-    max-height: 200px;
-    max-width: 200px;
-    width: 10vw;
-    height: 10vw;
-}
-/* #edit-profile-button{
-    font-size: .7vw;
-    padding-top: .3vw;
-    padding-bottom: 0.3vw;
-    padding-left: 1vw;
-    padding-right: 1vw;
-    max-width: 4vw;
-} */
 
 #user-profile-container {
-    background: rgb(117, 104, 98, 0.75);
-    
+    background: #0d4160;
+
 }
 
-.edit-input{
-    /* height: 10px; */
-}
-
-.edit-input-file{
+.edit-input-file {
     /* height: 2vw; */
     width: 2vw;
     white-space: normal;

@@ -7,7 +7,6 @@ export default (OriginalComponent) => {
         render() {
             return <Consumer>
                 {value => {
-                    // debugger
                     const { isAuthenticated } = value;
                     // console.log(isAuthenticated)
                     return isAuthenticated ? <OriginalComponent data={value}/> : null

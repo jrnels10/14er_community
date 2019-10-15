@@ -3,7 +3,7 @@ import { Consumer } from './../../Context';
 import './SignUpAndSignIn.css';
 import axios from 'axios';
 import GoogleLogin from 'react-google-login';
-import FacebookLogin from 'react-facebook-login';
+// import FacebookLogin from 'react-facebook-login';
 
 export default class SignIn extends Component {
     constructor(props, ...rest) {
@@ -57,15 +57,15 @@ export default class SignIn extends Component {
         try {
             const data = await axios.post(`${axiosServerUrl}/users/oauth/google`, { access_token: res.accessToken });
             // console.log(data);
+            debugger
             dispatch({
-                type: "SIGN_UP",
+                type: "SIGN_IN",
                 payload: {
                     token: data.data.token,
                     isAuthenticated: true,
                     errorMessage: ''
                 }
             });
-            debugger
             localStorage.setItem('JWT_TOKEN', data.data.token);
             axios.defaults.headers.common['Authorization'] = data.data.token;
             this.props.history.push('/dashboard');

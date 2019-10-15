@@ -24,7 +24,7 @@
   <!-- iOS -->
   <meta name="apple-mobile-web-app-title" content="Application Title">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <script>
     // When ready...
@@ -33,6 +33,7 @@
       setTimeout(function () {
         // Hide the address bar!
         document.getElementById('body').setAttribute("style", `height: ${window.innerHeight}px !important`);
+        document.cookie = "SameSite=None; Secure";
         window.scrollTo(0, 1);
       }, 0);
     });</script>

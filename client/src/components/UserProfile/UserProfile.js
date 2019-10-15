@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Consumer } from '../../Context';
 import Edit from './Edit';
 import secretResponse from './../HOC/Secret';
+import UserDetails from './UserDetails';
 
 // import axios from 'axios';
 // import { loadModules } from 'esri-loader';
@@ -16,17 +17,18 @@ class UserProfile extends Component {
         super(props);
 
         this.state = {
-            edit: false
+            edit: false,
+            height: true
         }
     }
+    
 
-    componentDidMount() {
-        // console.log(this.props)
-        if(this.props.data === undefined){
+    async componentDidMount() {
+        if (this.props.data === undefined) {
 
         }
-        else{
-            secretResponse(this.props.data.dispatch, this);
+        else {
+            await secretResponse(this.props.data.dispatch, this);
         }
     }
     onSelected = (e) => {
@@ -36,32 +38,42 @@ class UserProfile extends Component {
     editProfile = () => {
         this.setState({ edit: !this.state.edit })
     }
+    clickResize=()=>{
+        this.setState({ height: !this.state.height })
+    }
 
+    scrollResize = () => {
+        const slider = document.getElementById("user-details-container");
+        return slider.scrollTop > 10 ? this.setState({ height: false }) : this.setState({ height: true });
+    }
 
     render() {
+        const height = this.state.height;
+        const show = height ? 'full' : "half";
         return <Consumer>
             {value => {
                 // console.log(value)
-                const { firstName, lastName, profilePicture, homeTown, homeState } = value;
-                return <div className="jumbotron m-0 p-0 h-100" id='user-profile-container'>
-                    <div className="card row w-100 m-0 p-2" id="profile-card">
-                        <div className="h-100 w-100 text-center" >
-                            <div className="h-100 w-50" id='card-img-container'>
-                                <img className="card-img-top user-profile-picture float-left" src={profilePicture} alt="Proflie" />
-                            </div>
-                        </div>
-                        <div className="col-6 pr-2 float-right text-white text-right" id='nameAndEdit'>
+                const { firstName, lastName, profilePicture, homeTown, homeState } = value.user;
+                return <div className="m-0 p-0 h-100" id='user-profile-container' onScroll={this.scrollResize}>
+                    <div className={`card row w-100 m-0 p-0 ${show}-profile-card`} id="profile-card" draggable="true" onClick={this.clickResize} >
+                        <img className="card-img-top user-profile-picture float-left" src={profilePicture} alt="Proflie" />
+                        <div className="image-shadow"></div>
+
+                        <div className="col-6 pr-4 float-right text-white text-right" id='nameAndEdit'>
                             <div className="w-100 w-50">
                                 <h4 className="card-title m-0">{firstName} {lastName}</h4>
                                 <p className="card-hometown">{homeTown}, {homeState}</p>
                             </div>
 
-                            <button className="btn btn-warning" id='edit-profile-button' onClick={this.editProfile.bind(this, value)}>Edit</button>
+                            {height ? <button className="btn btn-warning" id='edit-profile-button' onClick={this.editProfile.bind(this, value)}>Edit</button> : null}
                         </div>
                         {this.state.edit ? <div className="w-100 m-0 p-1 mt-2">
                             <Edit user={value} editProfile={this.editProfile} reload={this.props.reload} />  </div> : null}
+                        {height ? <button className="btn hide-profile-image" onClick={this.clickResize}>Hide</button> : null}
                     </div>
-
+                    <div className={`user-details-container-${show}`} id='user-details-container'  onScroll={this.scrollResize}>
+                        <UserDetails show={show} value={value} />
+                    </div>
                 </div>
             }}
         </Consumer>

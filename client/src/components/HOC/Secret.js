@@ -30,6 +30,7 @@ export default async (dispatch, userState) => {
                         profilePicture: userType.google.profilePicture,
                         homeTown: userType.google.homeTown,
                         homeState: userType.google.homeState,
+                        myPeaksCompleted:userType.peaksCompleted,
                         method: 'google',
                     }
                 });
@@ -60,6 +61,7 @@ export default async (dispatch, userState) => {
                         profilePicture: userType.local.profilePicture,
                         homeTown: userType.local.homeTown,
                         homeState: userType.local.homeState,
+                        myPeaksCompleted:userType.peaksCompleted,
                         method: 'local',
                     }
                 })
@@ -90,6 +92,7 @@ export default async (dispatch, userState) => {
                         profilePicture: userType.facebook.profilePicture,
                         homeTown: userType.facebook.homeTown,
                         homeState: userType.facebook.homeState,
+                        myPeaksCompleted:userType.peaksCompleted,
                         method: 'facebook'
                     }
                 })

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Loader from './components/loader/Loader';
+import { secret } from './API/UsersAPI';
+import { getPeaksDetails } from './API/PeaksAPI';
+import { PeakFeatureLayer } from './components/map/FeatureLayers/mapLayers';
 
 const Context = React.createContext();
 let wellList = [];
@@ -33,16 +35,10 @@ const reducer = (state, action) => {
                 errorMessage: action.payload.errorMessage
             }
         case 'USER_INFO':
+            let userInfo = state;
+            userInfo.user = action.payload;
             return {
-                ...state,
-                _id: action.payload._id,
-                email: action.payload.email,
-                firstName: action.payload.firstName,
-                lastName: action.payload.lastName,
-                profilePicture: action.payload.profilePicture,
-                homeTown: action.payload.homeTown,
-                homeState: action.payload.homeState,
-                method: action.payload.method
+                ...state
             }
         case 'SIGN_OUT':
             return {
@@ -127,6 +123,17 @@ const reducer = (state, action) => {
 
 export class Provider extends Component {
     state = {
+        user: {
+            email: '',
+            firstName: '',
+            lastName: '',
+            profilePicture: '',
+            homeTown: '',
+            homeState: '',
+            method: '',
+            _id: '',
+            myPeaksCompleted: []
+        },
         email: '',
         firstName: '',
         lastName: '',
@@ -143,7 +150,7 @@ export class Provider extends Component {
             currentPeakSelected: '',
             peaksCompleted: [],
             peaksPlanned: '',
-            allPeaksCompleted: '',
+            allPeaksCompleted: [],
             peakOccurenceArray: ''
         },
         map: '',
@@ -155,12 +162,29 @@ export class Provider extends Component {
         wells: [],
         dispatch: action => this.setState(state => reducer(state, action))
     }
-    componentDidMount() {
+    async componentDidMount() {
         this.environment();
         const jwtToken = localStorage.getItem('JWT_TOKEN');
         axios.defaults.headers.common['Authorization'] = jwtToken;
-        // debugger
-        return jwtToken ? this.setState({ token: jwtToken, isAuthenticated: true, loader: false }) : this.setState({ loader: false })
+        if (jwtToken) {
+            await secret();
+            let layer = await PeakFeatureLayer(this.state.renderType)
+            const peaksDetails = await getPeaksDetails();
+            // debugger
+            this.setState(prevState => {
+                return ({
+                    peaks: {
+                        ...prevState.peaks,
+                        allPeaksCompleted: [...peaksDetails.data.peakDetails]
+                    }
+                })
+            })
+            this.setState({ token: jwtToken, peaksLayers: layer, isAuthenticated: true, loader: false })
+
+        }
+        else {
+            this.props.history.push('/')
+        }
     }
     environment = () => {
         return process.env.NODE_ENV === "development" ? null : this.setState({
