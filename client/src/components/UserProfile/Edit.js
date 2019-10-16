@@ -24,13 +24,13 @@ class EditProfile extends Component {
 
     componentDidMount() {
         this.setState({
-            profilePicture: this.props.user.profilePicture,
-            email: this.props.user.email,
-            firstName: this.props.user.firstName,
-            lastName: this.props.user.lastName,
-            homeTown: this.props.user.homeTown,
-            homeState: this.props.user.homeState,
-            method:this.props.user.method
+            profilePicture: this.props.user.user.profilePicture,
+            email: this.props.user.user.email,
+            firstName: this.props.user.user.firstName,
+            lastName: this.props.user.user.lastName,
+            homeTown: this.props.user.user.homeTown,
+            homeState: this.props.user.user.homeState,
+            method:this.props.user.user.method
         });
         this.focusDiv();
     }
@@ -43,7 +43,7 @@ class EditProfile extends Component {
         this.setState({ [e.target.name]: e.target.files[0] })
     }
     onSelectedText = (e) => {
-        console.log(e.target.files)
+        console.log(e.target.value)
         this.setState({ [e.target.name]: e.target.value })
     }
     upload = async (e) => {
@@ -69,13 +69,13 @@ class EditProfile extends Component {
         bodyFormData.append('data', this.state.method);
         bodyFormData.append('user', json);
         // debugger
-        const res = await axios.put(`${this.props.user.axiosServerUrl}/users/update/${this.props.user.email}`,
+        const res = await axios.put(`${this.props.user.axiosServerUrl}/users/update/${this.props.user.user.email}`,
             bodyFormData,
             { headers: { 'Content-Type': 'multipart/form-data' } }
         );
         if (res.status === 200) {
             this.setState({ updated: true });
-            this.props.reload();
+            // this.props.reload();
         }
         console.log(res)
     }

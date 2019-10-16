@@ -3,6 +3,7 @@ import { Consumer } from '../../Context';
 import Edit from './Edit';
 import secretResponse from './../HOC/Secret';
 import UserDetails from './UserDetails';
+import placeHolder from './../../Images/placeholder.jpg';
 
 // import axios from 'axios';
 // import { loadModules } from 'esri-loader';
@@ -38,7 +39,9 @@ class UserProfile extends Component {
     editProfile = () => {
         this.setState({ edit: !this.state.edit })
     }
-    clickResize=()=>{
+    clickResize=(e)=>{
+        e.stopPropagation()
+        e.preventDefault();
         this.setState({ height: !this.state.height })
     }
 
@@ -56,13 +59,13 @@ class UserProfile extends Component {
                 const { firstName, lastName, profilePicture, homeTown, homeState } = value.user;
                 return <div className="m-0 p-0 h-100" id='user-profile-container' onScroll={this.scrollResize}>
                     <div className={`card row w-100 m-0 p-0 ${show}-profile-card`} id="profile-card" draggable="true" onClick={this.clickResize} >
-                        <img className="card-img-top user-profile-picture float-left" src={profilePicture} alt="Proflie" />
+                        <img className="card-img-top user-profile-picture float-left" src={profilePicture === ''? placeHolder:profilePicture} alt="Proflie" />
                         <div className="image-shadow"></div>
 
                         <div className="col-6 pr-4 float-right text-white text-right" id='nameAndEdit'>
-                            <div className="w-100 w-50">
+                            <div className="w-100">
                                 <h4 className="card-title m-0">{firstName} {lastName}</h4>
-                                <p className="card-hometown">{homeTown}, {homeState}</p>
+                                {height ?  <p className="card-hometown">{homeTown}, {homeState}</p>:null}
                             </div>
 
                             {height ? <button className="btn btn-warning" id='edit-profile-button' onClick={this.editProfile.bind(this, value)}>Edit</button> : null}

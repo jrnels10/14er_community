@@ -38,20 +38,12 @@
 
 }
 .details-half{
-    padding-top: 100px;
+    padding-top: 120px;
     transition: padding-top 500ms;
 }
 .details-full{
     padding-top: 10px;
     transition: padding-top 500ms;
-}
-
-#user-details > h4, #user-details > hr{
-    color: white;
-    text-align: center;
-    margin: auto;
-    margin-top:2px;
-    margin-bottom: 5px;
 }
 
 #profile-email {
@@ -78,7 +70,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    box-shadow: inset 0px -30px 26px -10px rgba(0, 0, 0, 0.6), 0px 12px 27px -10px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0px -15px 20px 0px rgba(0, 0, 0, 0.3), 0px 12px 27px -10px rgba(0, 0, 0, 0.6);
     border-radius: 0 0 30px 30px;
     bottom: 0px;
 }

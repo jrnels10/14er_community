@@ -2,3 +2,11 @@
     width: 100%;
     height: auto;
 }
+
+#chart-container > h4, #chart-container > hr{
+    color: white;
+    text-align: center;
+    margin: auto;
+    margin-top:2px;
+    margin-bottom: 5px;
+}

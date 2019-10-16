@@ -4,6 +4,9 @@ import './SignUpAndSignIn.css';
 import axios from 'axios';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
+import Avatars from '@dicebear/avatars';
+import sprites from '@dicebear/avatars-male-sprites';
+
 
 export default class SignUp extends Component {
     constructor(props, ...rest) {
@@ -18,7 +21,11 @@ export default class SignUp extends Component {
     }
 
     onSubmit = async (value, e) => {
-        const { dispatch,axiosServerUrl } = value;
+        let options = {};
+        let avatars = new Avatars(sprites(options));
+        let svg = avatars.create('custom-seed');
+        console.log(svg)
+        const { dispatch, axiosServerUrl } = value;
         e.preventDefault();
         // Step 1) User the data and to make HTTP request to our BE and send it along
         // Step 2) Take the BE's response (jwtToken)
@@ -27,12 +34,13 @@ export default class SignUp extends Component {
         try {
             const res = await axios.post(`${axiosServerUrl}/users/signup`, {
                 // const res = await axios.post('https://fourteener-community.herokuapp.com/users/signup', {
+                    profilePicture: '',
                     email: this.state.email,
-                password: this.state.password,
-                firstName: this.state.firstName,
-                lastName: this.state.lastName
-            })
-            console.log(res)
+                    password: this.state.password,
+                    firstName: this.state.firstName,
+                    lastName: this.state.lastName
+                })
+
             dispatch({
                 type: "SIGN_UP",
                 payload: {
@@ -43,7 +51,7 @@ export default class SignUp extends Component {
                 }
             });
             localStorage.setItem('JWT_TOKEN', res.data.token);
-            this.props.history.push('/dashboard');
+            this.props.history.push('/profile');
             axios.defaults.headers.common['Authorization'] = res.data.token;
 
         } catch (err) {
@@ -60,7 +68,7 @@ export default class SignUp extends Component {
     }
 
     async responseGoogle(value, res) {
-        const { dispatch,axiosServerUrl } = value;
+        const { dispatch, axiosServerUrl } = value;
         try {
             const data = await axios.post(`${axiosServerUrl}/users/oauth/google`, { access_token: res.accessToken });
             // const data = await axios.post('https://fourteener-community.herokuapp.com/users/oauth/google', { access_token: res.accessToken });
@@ -82,7 +90,7 @@ export default class SignUp extends Component {
         }
     }
     async responseFacebook(value, res) {
-        const { dispatch,axiosServerUrl } = value;
+        const { dispatch, axiosServerUrl } = value;
         // console.log(dispatch, res)
         debugger
         try {
@@ -184,7 +192,7 @@ export default class SignUp extends Component {
                             </small>
                             </div>
                             <div className='row w-100 m-0 pl-2 p-0 mt-3'>
-                                <div className="w-50 m-auto text-center">
+                                {/* <div className="w-50 m-auto text-center">
 
                                     <FacebookLogin
                                         appId={`${value.facebookappId}`}
@@ -193,9 +201,9 @@ export default class SignUp extends Component {
                                         fields="name,email,picture"
                                         callback={this.responseFacebook.bind(this, value)}
                                         cssClass="btn facebook-login"
-                                        // icon="fa-facebook"
+                                   
                                     />
-                                </div>
+                                </div> */}
                                 <div className="w-50 m-auto text-center">
                                     <GoogleLogin
                                         clientId={`${value.googleClientId}`}

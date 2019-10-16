@@ -22,7 +22,7 @@ export default class PeakDetails extends Component {
         this.props.toggle()
         const { view, map, dispatch } = this.props.data;
         let fouteenerListCompleted = {
-            user: this.props.data._id, peaks: {
+            user: this.props.data.user._id, peaks: {
                 peakName: this.props.peak.attributes.name,
                 dateCompleted: this.state.date,
                 difficulty: parseInt(this.state.difficulty),
