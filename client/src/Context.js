@@ -15,30 +15,20 @@ const reducer = (state, action) => {
     switch (action.type) {
         // where the different actions take place.
         case 'SIGN_UP':
-                let userSignUp = state;
-                userSignUp.user = action.payload;
-                return {
-                    ...state
-                }
-            // return {
-            //     ...state,
-            //     email: action.payload.email,
-            //     token: action.payload.token,
-            //     isAuthenticated: action.payload.isAuthenticated,
-            // }
+            return {
+                ...state,
+                email: action.payload.email,
+                token: action.payload.token,
+                isAuthenticated: action.payload.isAuthenticated,
+            }
         case 'SIGN_IN':
-                let userSignIn = state;
-                userSignIn.user = action.payload;
-                return {
-                    ...state
-                }
-            // return {
-            //     ...state,
-            //     email: action.payload.email,
-            //     _id: action.payload._id,
-            //     token: action.payload.token,
-            //     isAuthenticated: action.payload.isAuthenticated,
-            // }
+            return {
+                ...state,
+                email: action.payload.email,
+                _id: action.payload._id,
+                token: action.payload.token,
+                isAuthenticated: action.payload.isAuthenticated,
+            }
         case 'AUTH_ERROR':
             return {
                 ...state,
@@ -144,6 +134,18 @@ export class Provider extends Component {
             _id: '',
             myPeaksCompleted: []
         },
+        email: '',
+        firstName: '',
+        lastName: '',
+        profilePicture: '',
+        homeTown: '',
+        homeState: '',
+        method: '',
+        loader: true,
+        isAuthenticated: false,
+        token: '',
+        peaksLayers: '',
+        view: '',
         peaks: {
             currentPeakSelected: '',
             peaksCompleted: [],
@@ -151,12 +153,8 @@ export class Provider extends Component {
             allPeaksCompleted: [],
             peakOccurenceArray: ''
         },
-        loader: true,
-        isAuthenticated: false,
-        token: '',
-        peaksLayers: '',
-        view: '',
         map: '',
+        _id: '',
         errorMessage: '',
         facebookappId: "2368972536494612",
         googleClientId: "193762703842-63qqf0oip1i372ib0a27opsn8opuhpkm.apps.googleusercontent.com",
@@ -185,7 +183,7 @@ export class Provider extends Component {
 
         }
         else {
-            this.setState({loader: false })
+            this.props.history.push('/')
         }
     }
     environment = () => {

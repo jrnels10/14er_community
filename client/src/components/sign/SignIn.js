@@ -57,7 +57,7 @@ export default class SignIn extends Component {
         try {
             const data = await axios.post(`${axiosServerUrl}/users/oauth/google`, { access_token: res.accessToken });
             // console.log(data);
-            // debugger
+            debugger
             dispatch({
                 type: "SIGN_IN",
                 payload: {
@@ -156,7 +156,6 @@ export default class SignIn extends Component {
                             </div>
                             <div className='row w-100 m-0 pl-2 p-0 mt-3'>
                                 {/* <div className="w-50 m-auto text-center">
-
                                     <FacebookLogin
                                         appId='1431908256951062'
                                         autoLoad={false}
@@ -184,5 +183,3 @@ export default class SignIn extends Component {
         );
     }
 }
-
-

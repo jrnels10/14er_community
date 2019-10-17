@@ -3,13 +3,6 @@ import moment from 'moment';
 import { Chart } from 'chart.js';
 import './chart.css';
 
-<<<<<<< HEAD
-async function dataLabels(myPeaksCompleted) {
-
-}
-=======
-
->>>>>>> fe467295eb35fa7d15a0e00c504e90ee670431d1
 async function dataTally(data, format) {
     let dateArray = data.map(item => {
         return item.dateCompleted
