@@ -3,9 +3,13 @@ import moment from 'moment';
 import { Chart } from 'chart.js';
 import './chart.css';
 
+<<<<<<< HEAD
 async function dataLabels(myPeaksCompleted) {
 
 }
+=======
+
+>>>>>>> fe467295eb35fa7d15a0e00c504e90ee670431d1
 async function dataTally(data, format) {
     let dateArray = data.map(item => {
         return item.dateCompleted
@@ -43,7 +47,11 @@ export default class Graph extends Component {
     }
     async componentDidMount() {
         const { user: { myPeaksCompleted } } = this.props.data;
+<<<<<<< HEAD
         let overAllData = await overAllDataTally(this.props.data.peaks.allPeaksCompleted, this.props.type)
+=======
+        // let overAllData = await overAllDataTally(this.props.data.peaks.allPeaksCompleted, this.props.type)
+>>>>>>> fe467295eb35fa7d15a0e00c504e90ee670431d1
         let newData = await dataTally(myPeaksCompleted, this.props.type)
         var ctx = document.getElementById(`myChart-${this.props.type}`).getContext('2d');
         new Chart(ctx, {
@@ -70,6 +78,7 @@ export default class Graph extends Component {
                         'rgba(255, 159, 64, 1)'
                     ],
                     borderWidth: 1
+<<<<<<< HEAD
                 },
                 {
                     label: 'All users',
@@ -93,6 +102,9 @@ export default class Graph extends Component {
                     borderWidth: 1
                 }
             
+=======
+                }
+>>>>>>> fe467295eb35fa7d15a0e00c504e90ee670431d1
             ]
             },
             options: {
