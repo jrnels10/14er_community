@@ -57,7 +57,7 @@ export default class SignIn extends Component {
         try {
             const data = await axios.post(`${axiosServerUrl}/users/oauth/google`, { access_token: res.accessToken });
             // console.log(data);
-            debugger
+            // debugger
             dispatch({
                 type: "SIGN_IN",
                 payload: {

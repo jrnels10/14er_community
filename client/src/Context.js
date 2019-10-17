@@ -185,7 +185,7 @@ export class Provider extends Component {
 
         }
         else {
-            this.props.history.push('/')
+            this.setState({loader: false })
         }
     }
     environment = () => {
