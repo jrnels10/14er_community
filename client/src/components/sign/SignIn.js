@@ -158,7 +158,8 @@ export default class SignIn extends Component {
                                 <div className="w-50 m-auto text-center">
                                     <FacebookLogin
                                         appId='1431908256951062'
-                                        autoLoad={true}
+                                        autoLoad={false}
+                                        redirectUri={'https://fourteener-community.herokuapp.com/dashboard'}
                                         isMobile={false}
                                         textButton=" Facebook"
                                         fields="name,email,picture"
