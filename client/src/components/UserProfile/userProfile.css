@@ -7,26 +7,32 @@
 }
 
 #profile-card {
-    border-radius: 0px 0px 30px 30px;
+    /* border-radius: 0px 0px 30px 30px; */
     background: #0d4160;
     border: 0px;
 }
 
 .full-profile-card {
-    height: 45%;
+    height: 95%;
     transition: height 500ms
 }
 
 .half-profile-card {
-    height: 10%;
+    height: 15%;
     transition: height 500ms;
 }
-#user-details-container{
+
+#user-details-container {
     bottom: 0px;
-    /* position: absolute; */
+    background-color: #0d4160;
+    position: absolute;
+    width: 100%;
+    border-radius: 30px 30px 0px 0px;
+    box-shadow: 0px -30px 26px -10px rgba(0, 0, 0, 0.6), 0px 2px 15px 2px rgba(0, 0, 0, 0.76);
 }
+
 .user-details-container-full {
-    height: 55%;
+    height: 10%;
     overflow: auto;
     transition: height 500ms;
 }
@@ -35,15 +41,23 @@
     overflow: auto;
     height: 85%;
     transition: height 500ms;
-
 }
-.details-half{
-    padding-top: 120px;
+
+/* .details-half{
+    padding-top: 100px;
     transition: padding-top 500ms;
 }
 .details-full{
     padding-top: 10px;
     transition: padding-top 500ms;
+} */
+
+#user-details>h4, #user-details>hr {
+    color: white;
+    text-align: center;
+    margin: auto;
+    margin-top: 2px;
+    margin-bottom: 5px;
 }
 
 #profile-email {
@@ -52,8 +66,9 @@
 
 .hide-profile-image {
     position: absolute;
-    bottom: 5px;
+    top: -2px;
     right: 25px;
+    /* height: 100px; */
     color: white;
     font-weight: bold;
 }
@@ -63,21 +78,20 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-    border-radius: 0px 0px 30px 30px;
+    /* border-radius: 0px 0px 30px 30px; */
 }
 
 .image-shadow {
     position: absolute;
     width: 100%;
     height: 100%;
-    box-shadow: inset 0px -15px 20px 0px rgba(0, 0, 0, 0.3), 0px 12px 27px -10px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0px -30px 26px -10px rgba(0, 0, 0, 0.6), 0px 12px 27px -10px rgba(0, 0, 0, 0.6);
     border-radius: 0 0 30px 30px;
     bottom: 0px;
 }
 
 #user-profile-container {
     background: #0d4160;
-
 }
 
 .edit-input-file {
