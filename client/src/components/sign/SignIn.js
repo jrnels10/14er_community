@@ -158,7 +158,7 @@ export default class SignIn extends Component {
                                 <div className="w-50 m-auto text-center">
                                     <FacebookLogin
                                         appId='1431908256951062'
-                                        autoLoad={false}
+                                        autoLoad={true}
                                         isMobile={false}
                                         textButton=" Facebook"
                                         fields="name,email,picture"
