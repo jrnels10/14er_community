@@ -16,7 +16,7 @@ export default class SignIn extends Component {
     }
 
     onSubmit = async (value, e) => {
-        const { dispatch,axiosServerUrl } = value;
+        const { dispatch, axiosServerUrl } = value;
         // console.log(this.state)
         e.preventDefault();
         // Step 1) User the data and to make HTTP request to our BE and send it along
@@ -53,7 +53,7 @@ export default class SignIn extends Component {
     }
 
     async responseGoogle(value, res) {
-        const { dispatch,axiosServerUrl } = value;
+        const { dispatch, axiosServerUrl } = value;
         try {
             const data = await axios.post(`${axiosServerUrl}/users/oauth/google`, { access_token: res.accessToken });
             // console.log(data);
@@ -75,7 +75,7 @@ export default class SignIn extends Component {
     }
 
     async responseFacebook(value, res) {
-        const { dispatch,axiosServerUrl } = value;
+        const { dispatch, axiosServerUrl } = value;
         // console.log(dispatch, res)
         debugger
         try {
@@ -159,13 +159,12 @@ export default class SignIn extends Component {
                                     <FacebookLogin
                                         appId='1431908256951062'
                                         autoLoad={false}
-                                        redirectUri={'https://fourteener-community.herokuapp.com/dashboard'}
                                         isMobile={false}
                                         textButton=" Facebook"
                                         fields="name,email,picture"
                                         callback={this.responseFacebook.bind(this, value)}
                                         cssClass="btn facebook-login"
-                                        // icon="fa-facebook"
+                                    // icon="fa-facebook"
                                     />
                                 </div>
                                 <div className="w-50 text-center">
