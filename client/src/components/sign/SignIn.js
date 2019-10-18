@@ -159,6 +159,7 @@ export default class SignIn extends Component {
                                     <FacebookLogin
                                         appId='1431908256951062'
                                         autoLoad={false}
+                                        isMobile={false}
                                         textButton=" Facebook"
                                         fields="name,email,picture"
                                         callback={this.responseFacebook.bind(this, value)}
