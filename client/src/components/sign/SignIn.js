@@ -155,7 +155,7 @@ export default class SignIn extends Component {
                             </small>
                             </div>
                             <div className='row w-100 m-0 pl-2 p-0 mt-3'>
-                                <div className="w-50 m-auto text-center">
+                                {/* <div className="w-50 m-auto text-center">
                                     <FacebookLogin
                                         appId='1431908256951062'
                                         autoLoad={false}
@@ -166,7 +166,7 @@ export default class SignIn extends Component {
                                         cssClass="btn facebook-login"
                                     // icon="fa-facebook"
                                     />
-                                </div>
+                                </div> */}
                                 <div className="w-50 text-center">
                                     <GoogleLogin
                                         clientId={`${value.googleClientId}`}
