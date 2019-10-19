@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { Consumer } from '../../Context';
 import axios from 'axios';
 import Loader from './../loader/Loader';
-import Logo from './../../Images/14erLogo.png'
+import { MobileFooterContainer } from './Mobile/MobileFooter';
+// import Logo from './../../Images/14erLogo.png'
 
 import './navbar.css';
 
@@ -61,46 +62,49 @@ export default class Navbar extends Component {
                     const { dispatch, loader } = value;
                     const home = value.isAuthenticated ? "blueish" : "no-color";
                     const show = this.state.show ? 'open' : 'close';
-                    return <nav className={`navbar navbar-dark ${home}`} style={{ zIndex: '5000' }}>
-                        <Loader nav={true} loop={loader} auto={loader} height="100%" /> <h6 className={`nav-title-${home}`}>Fourteener Community</h6>
-                        <Link className="navbar-brand" onClick={this.redirect.bind(this)} to="/"></Link>
-                        <button className={`navbar-toggler`} type="button" onClick={() => { this.setState({ show: !this.state.show }) }} aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
+                    return <React.Fragment>
+                        <nav className={`navbar navbar-dark ${home}`} style={{ zIndex: '5000' }}>
+                            <Loader nav={true} loop={loader} auto={loader} height="100%" /> <h6 className={`nav-title-${home}`}>Fourteener Community</h6>
+                            <Link className="navbar-brand" onClick={this.redirect.bind(this)} to="/"></Link>
+                            <button className={`navbar-toggler`} type="button" onClick={() => { this.setState({ show: !this.state.show }) }} aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"></span>
+                            </button>
 
-                        <div className={`navbar-custom-${show} ${home}`} id="navbarSupportedContent">
-                            {/* <FilterPeaks data={value}/> */}
-                            <ul className={`navbar-nav ul-${show} mr-auto text-${home}`}>
-                                {this.state.show ?
-                                    <React.Fragment>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" onClick={this.redirect} to="/dashboard">Dashboard</Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" onClick={this.redirect} to="/profile">Profile</Link>
-                                        </li>
-                                    </React.Fragment>
-                                    : null}
-                            </ul>
-                            <ul className={`navbar-nav ul-${show} mr-auto`}>
-                                {this.state.show ?
-                                    <React.Fragment>
-                                        {!value.isAuthenticated ?
-                                            [<li className="nav-item" key='signUp'>
-                                                <Link className="nav-link" onClick={this.redirect} to="/signup">Sign Up</Link>
-                                            </li>,
-                                            <li className="nav-item" key='signIn'>
-                                                <Link className="nav-link" onClick={this.redirect} to="/signin">Sign In</Link>
-                                            </li>] : null}
-                                        <li className="nav-item">
+                            <div className={`navbar-custom-${show} ${home}`} id="navbarSupportedContent">
+                                {/* <FilterPeaks data={value}/> */}
+                                <ul className={`navbar-nav ul-${show} mr-auto text-${home}`}>
+                                    {this.state.show ?
+                                        <React.Fragment>
+                                            <li className="nav-item">
+                                                <Link className="nav-link" onClick={this.redirect} to="/dashboard">Dashboard</Link>
+                                            </li>
+                                            <li className="nav-item">
+                                                <Link className="nav-link" onClick={this.redirect} to="/profile">Profile</Link>
+                                            </li>
+                                        </React.Fragment>
+                                        : null}
+                                </ul>
+                                <ul className={`navbar-nav ul-${show} mr-auto`}>
+                                    {this.state.show ?
+                                        <React.Fragment>
+                                            {!value.isAuthenticated ?
+                                                [<li className="nav-item" key='signUp'>
+                                                    <Link className="nav-link" onClick={this.redirect} to="/signup">Sign Up</Link>
+                                                </li>,
+                                                <li className="nav-item" key='signIn'>
+                                                    <Link className="nav-link" onClick={this.redirect} to="/signin">Sign In</Link>
+                                                </li>] : null}
+                                            <li className="nav-item">
 
-                                            {value.isAuthenticated ? <Link className="nav-link" to="/" onClick={this.signOut.bind(this, dispatch)}>Sign Out</Link> : null}
-                                        </li>
-                                    </React.Fragment>
-                                    : null}
-                            </ul>
-                        </div>
-                    </nav>
+                                                {value.isAuthenticated ? <Link className="nav-link" to="/" onClick={this.signOut.bind(this, dispatch)}>Sign Out</Link> : null}
+                                            </li>
+                                        </React.Fragment>
+                                        : null}
+                                </ul>
+                            </div>
+                        </nav>
+                        {value.isAuthenticated ? <MobileFooterContainer value={value} signOut={this.signOut}/>:null}
+                    </React.Fragment>
                 }}
             </Consumer>
         )
