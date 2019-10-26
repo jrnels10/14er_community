@@ -10,28 +10,32 @@
 }
 
 .peak-container {
-    border: 1px solid black;
-    background: #0d4160;
+    background: #545d6a;
     color: white
 }
 
 .peak-detail-show-container {
     display: block;
-    margin: auto;
-    text-align: center
 }
-.peak-detail-show-container label,.peak-detail-show-container input {
-   width: 75%
-}
+
 .peak-detail-hide-container {
     display: none;
 }
-.react-datetime-picker{
+
+.react-datetime-picker {
     width: 100%
 }
-.react-datetime-picker__wrapper{
+
+.react-datetime-picker__wrapper {
     margin: auto
 }
+
+#peak-header {
+    color: #ffc00b;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ffffff;
+}
+
 .peak-detail-show {
     overflow: hidden;
     z-index: 1000;
@@ -39,13 +43,13 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 75%;
+    height: 100%;
     transition-delay: 2s;
     transition: height 0.3s;
-    border-radius: 30px 30px 0 0;
-    background-color: #d7d6d9;
+    /* border-radius: 30px 30px 0 0; */
+    background: #545d6a;
+    color: white;
     border-top: #0d4160 solid 1px;
-    padding: 15px;
     box-shadow: 0px 25px 50px 0 rgba(0, 0, 0, 0.6), 10px 0px 40px 0 rgba(0, 0, 0, 0.5) !important;
 }
 
@@ -55,4 +59,62 @@
     width: 0%;
     transition-delay: 2s;
     transition: height 0.3s;
+}
+
+#user-completed-container {
+    overflow-x: auto;
+}
+
+.close-peak-details-container {
+    position: absolute;
+    right: 25px;
+}
+
+.peak-input-open {
+    height: 200px;
+    transition: height 500ms;
+    border-bottom: #ffffff solid 2px;
+}
+
+.peak-input-close {
+    height: 0px;
+    visibility: hidden;
+    transition: height 500ms;
+}
+
+.peak-input-open div {
+    animation: cssAnimation 0s 400ms forwards;
+    visibility: hidden;
+}
+
+@keyframes cssAnimation {
+    to {
+        visibility: visible;
+    }
+}
+
+#user-input-table {
+    width: 100%;
+}
+
+#user-input-table tbody tr td:first-child {
+    width: 50%;
+}
+
+.regular-inputs {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #ffffff;
+    border-bottom: 2px solid #ffc00b;
+    outline: none;
+}
+
+.react-datetime-picker__inputGroup__input, .react-datetime-picker__button__icon, svg[stroke] {
+    border-bottom: none !important;
+    color: #ffffff;
+}
+
+.react-datetime-picker__inputGroup__hour, .react-datetime-picker__inputGroup__minute, .react-datetime-picker__inputGroup__amPm {
+    display: none !important;
 }

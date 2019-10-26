@@ -56,7 +56,7 @@ export async function PeakFeatureLayer(renderType) {
 
             layer.renderer = renderType ? await renderer3DBarChart() : rendererDefault
             layer.labelingInfo = [PeakLabelDefault]
-            layer.popupTemplate = PeakPopup
+            layer.popupTemplate = null//PeakPopup
             return layer
         });
 };

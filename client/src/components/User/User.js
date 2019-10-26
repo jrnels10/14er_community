@@ -24,9 +24,7 @@ export default class UserPeaks extends Component {
     }
 
     render() {
-        ;
-        const users = this.state.users
-        console.log(this.state.users)
+        const users = this.state.users;
         return (
             <div className="w-100 h-100 listHorizontal">
                 {users.length > 0 ?

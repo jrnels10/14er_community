@@ -39,13 +39,15 @@ export default class MapClass extends Component {
         })
     };
 
-    toggleModal = () => {
-        document.getElementById('')
-        this.setState({
-            showLogin: !this.state.showLogin,
-            currentPeak: ''
-        });
-    };
+    // toggleModal = () => {
+    //     document.getElementById('')
+    //     that.props.data.dispatch({
+    //         type: "CURRENT_PEAK_SELECTED",
+    //         payload: {
+    //             currentPeakSelected: ''
+    //         }
+    //     })
+    // };
 
     toggleRender = async (value, type) => {
         const { map, view } = value;
@@ -63,9 +65,7 @@ export default class MapClass extends Component {
                     return <React.Fragment>
                         <div className='w-100 h-100 bg-light position-relative' id="viewDiv">
                             <div className="toggle-render-view" onClick={this.toggleRender.bind(this, value, !this.state.renderType)}>{this.state.renderType ? <i className="fas fa-toggle-on fa-lg toggle-widget"></i> : <i className="toggle-widget fas fa-lg fa-toggle-off"></i>}</div>
-                            {this.state.currentPeak ?
-                                <LogPeakCompleted display={this.state.showLogin} toggle={this.toggleModal} peak={this.state.currentPeak} data={value} />
-                                : null}
+                            <LogPeakCompleted peak={value.peaks.currentPeakSelected} data={value} />
                         </div>
                     </React.Fragment>
                 }}
