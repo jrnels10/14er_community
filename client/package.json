@@ -19,7 +19,7 @@
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.0.4",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.4.4"
   },
   "scripts": {
     "start": "react-scripts start",
